@@ -78,18 +78,62 @@
           ></lite-youtube>
         </div> -->
 
-        <!-- <h3>BTHome is supported by the following projects</h3>
+        <h3>Projects using BTHome</h3>
 
-        <div class="projects">
-          <a href="https://www.home-assistant.io" target="_blank" class="project">
-            <div class="logo">
-              <img src="/images/home-assistant.png" alt="Home Assistant logo" />
-            </div>
-            <div class="name">Home Assistant</div>
-          </a>
-        </div> -->
+        <div class="project">
+          <div class="logo">
+            <img src="/images/home-assistant.png" alt="Home Assistant logo" />
+          </div>
+          <div class="info">
+            <h3>Home Assistant</h3>
+            <p>
+              Open source home automation with a focus on local control and
+              privacy. Automatically discovers BTHome devices and allows users
+              to add them to their home with a single click.
+            </p>
+            <p>
+              <a href="https://www.home-assistant.io" target="_blank"
+                >Website</a
+              >
+            </p>
+          </div>
+        </div>
 
-        <h3>Example</h3>
+        <div class="project">
+          <div class="logo">
+            <img
+              src="/images/atc-mithermometer.png"
+              alt="ATC MiThermometer logo"
+            />
+          </div>
+          <div class="info">
+            <h3>ATC MiThermometer</h3>
+            <p>
+              Custom firmware for several Bluetooth Thermometer & Hygrometer
+              devices that can broadcast temperature and humidity via BTHome.
+            </p>
+            <p>
+              Use their
+              <a
+                href="https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html"
+                target="_blank"
+                >TelinkMiFlasher.html</a
+              >
+              tool to upgrade your device directly from your browser. Once
+              installed, change the advertising type to "HA BLE" and click "Send
+              Config".
+            </p>
+            <p>
+              <a
+                href="https://github.com/pvvx/ATC_MiThermometer#readme"
+                target="_blank"
+                >Website</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <h3 id="example-data">Example Data</h3>
         <p>
           The format can best be explained with an example. A BLE advertisement
           is a long message with bytes (bytestring).

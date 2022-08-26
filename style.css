@@ -69,22 +69,24 @@ improv-wifi-launch-button[supported],
 improv-wifi-serial-launch-button[supported] {
   margin-right: 1em;
 }
-.projects {
+.project {
   display: flex;
-  text-align: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: center;
 }
-.projects a {
-  color: initial;
-  text-decoration: none;
+.project .logo {
+  width: 50px;
 }
-.project .logo > * {
-  height: 50px;
+.project .logo img {
+  width: 100%;
 }
-.project .name {
-  margin-top: 8px;
+.project .info {
+  margin-left: 16px;
+  flex: 1;
+}
+.project .info h3 {
+  margin: 4px 0 8px;
+}
+.project + .project {
+  margin-top: 1rem;
 }
 .center {
   text-align: center;
