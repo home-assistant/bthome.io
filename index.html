@@ -572,6 +572,10 @@
           </tbody>
         </table>
         <h4>Binary Sensor data</h4>
+        <p>
+          Binary sensor data should always be a uint8 of a single byte. It's
+          value should be <code>1</code> for on, and <code>0</code> for off.
+        </p>
         <table>
           <thead>
             <tr>
@@ -581,8 +585,6 @@
               <th>Factor</th>
               <th>example</th>
               <th>result</th>
-              <th>Unit</th>
-              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -597,10 +599,6 @@
                 <code>020F01</code>
               </td>
               <td>1 (True)</td>
-              <td>
-                <code>True</code>
-              </td>
-              <td></td>
             </tr>
             <tr>
               <td>
@@ -613,10 +611,6 @@
                 <code>021001</code>
               </td>
               <td>1 (True)</td>
-              <td>
-                <code>on</code>
-              </td>
-              <td></td>
             </tr>
             <tr>
               <td>
@@ -629,10 +623,6 @@
                 <code>021100</code>
               </td>
               <td>0 (false)</td>
-              <td>
-                <code>closed</code>
-              </td>
-              <td></td>
             </tr>
           </tbody>
         </table>
