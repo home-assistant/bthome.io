@@ -317,368 +317,370 @@
         </ul>
         <h3 id="supported-data">Supported data</h3>
         <h4 id="sensor-data">Sensor data</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Object id</th>
-              <th>Property</th>
-              <th>Preferred data type</th>
-              <th>Factor</th>
-              <th>example</th>
-              <th>result</th>
-              <th>Unit</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>0x01</code>
-              </td>
-              <td>battery</td>
-              <td>uint8 (1&nbsp;byte)</td>
-              <td>1</td>
-              <td>
-                <code>020161</code>
-              </td>
-              <td>97</td>
-              <td>
-                <code>%</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x02</code>
-              </td>
-              <td>temperature</td>
-              <td>sint16 (2&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>2302CA09</code>
-              </td>
-              <td>25.06</td>
-              <td>
-                <code>°C</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x03</code>
-              </td>
-              <td>humidity</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>0303BF13</code>
-              </td>
-              <td>50.55</td>
-              <td>
-                <code>%</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x04</code>
-              </td>
-              <td>pressure</td>
-              <td>uint24 (3&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>0404138A01</code>
-              </td>
-              <td>1008.83</td>
-              <td>
-                <code>hPa</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x05</code>
-              </td>
-              <td>illuminance</td>
-              <td>uint24 (3&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>0405138A14</code>
-              </td>
-              <td>13460.67</td>
-              <td>
-                <code>lux</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x06</code>
-              </td>
-              <td>weight</td>
-              <td>uint16 (2&nbsp;byte)</td>
-              <td>0.01</td>
-              <td>
-                <code>03065E1F</code>
-              </td>
-              <td>80.3</td>
-              <td>
-                <code>kg</code>
-              </td>
-              <td>[2]</td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x08</code>
-              </td>
-              <td>dewpoint</td>
-              <td>sint16 (2&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>2308CA06</code>
-              </td>
-              <td>17.386</td>
-              <td>
-                <code>°C</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x09</code>
-              </td>
-              <td>count</td>
-              <td>uint</td>
-              <td>1</td>
-              <td>
-                <code>020960</code>
-              </td>
-              <td>96</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0X0A</code>
-              </td>
-              <td>energy</td>
-              <td>uint24 (3&nbsp;bytes)</td>
-              <td>0.001</td>
-              <td>
-                <code>040A138A14</code>
-              </td>
-              <td>1346.067</td>
-              <td>
-                <code>kWh</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x0B</code>
-              </td>
-              <td>power</td>
-              <td>uint24 (3&nbsp;bytes)</td>
-              <td>0.01</td>
-              <td>
-                <code>040B021B00</code>
-              </td>
-              <td>69.14</td>
-              <td>
-                <code>W</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x0C</code>
-              </td>
-              <td>voltage</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>0.001</td>
-              <td>
-                <code>030C020C</code>
-              </td>
-              <td>3.074</td>
-              <td>
-                <code>V</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x0D</code>
-              </td>
-              <td>pm2.5</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>1</td>
-              <td>
-                <code>030D120C</code>
-              </td>
-              <td>3090</td>
-              <td>
-                <code>kg/m3</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x0E</code>
-              </td>
-              <td>pm10</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>1</td>
-              <td>
-                <code>030E021C</code>
-              </td>
-              <td>7170</td>
-              <td>
-                <code>kg/m3</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x12</code>
-              </td>
-              <td>co2</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>1</td>
-              <td>
-                <code>0312E204</code>
-              </td>
-              <td>1250</td>
-              <td>
-                <code>ppm</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x13</code>
-              </td>
-              <td>tvoc</td>
-              <td>uint16 (2&nbsp;bytes)</td>
-              <td>1</td>
-              <td>
-                <code>03133301</code>
-              </td>
-              <td>307</td>
-              <td>
-                <code>ug/m3</code>
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Object id</th>
+                <th>Property</th>
+                <th>Preferred data type</th>
+                <th>Factor</th>
+                <th>example</th>
+                <th>result</th>
+                <th>Unit</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>0x01</code>
+                </td>
+                <td>battery</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>020161</code>
+                </td>
+                <td>97</td>
+                <td>
+                  <code>%</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x02</code>
+                </td>
+                <td>temperature</td>
+                <td>sint16 (2&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>2302CA09</code>
+                </td>
+                <td>25.06</td>
+                <td>
+                  <code>°C</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x03</code>
+                </td>
+                <td>humidity</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>0303BF13</code>
+                </td>
+                <td>50.55</td>
+                <td>
+                  <code>%</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x04</code>
+                </td>
+                <td>pressure</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>0404138A01</code>
+                </td>
+                <td>1008.83</td>
+                <td>
+                  <code>hPa</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x05</code>
+                </td>
+                <td>illuminance</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>0405138A14</code>
+                </td>
+                <td>13460.67</td>
+                <td>
+                  <code>lux</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x06</code>
+                </td>
+                <td>weight</td>
+                <td>uint16 (2&nbsp;byte)</td>
+                <td>0.01</td>
+                <td>
+                  <code>03065E1F</code>
+                </td>
+                <td>80.3</td>
+                <td>
+                  <code>kg</code>
+                </td>
+                <td>[2]</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x08</code>
+                </td>
+                <td>dewpoint</td>
+                <td>sint16 (2&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>2308CA06</code>
+                </td>
+                <td>17.386</td>
+                <td>
+                  <code>°C</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x09</code>
+                </td>
+                <td>count</td>
+                <td>uint</td>
+                <td>1</td>
+                <td>
+                  <code>020960</code>
+                </td>
+                <td>96</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0X0A</code>
+                </td>
+                <td>energy</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.001</td>
+                <td>
+                  <code>040A138A14</code>
+                </td>
+                <td>1346.067</td>
+                <td>
+                  <code>kWh</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0B</code>
+                </td>
+                <td>power</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>040B021B00</code>
+                </td>
+                <td>69.14</td>
+                <td>
+                  <code>W</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0C</code>
+                </td>
+                <td>voltage</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>0.001</td>
+                <td>
+                  <code>030C020C</code>
+                </td>
+                <td>3.074</td>
+                <td>
+                  <code>V</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0D</code>
+                </td>
+                <td>pm2.5</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>1</td>
+                <td>
+                  <code>030D120C</code>
+                </td>
+                <td>3090</td>
+                <td>
+                  <code>kg/m3</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0E</code>
+                </td>
+                <td>pm10</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>1</td>
+                <td>
+                  <code>030E021C</code>
+                </td>
+                <td>7170</td>
+                <td>
+                  <code>kg/m3</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x12</code>
+                </td>
+                <td>co2</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>1</td>
+                <td>
+                  <code>0312E204</code>
+                </td>
+                <td>1250</td>
+                <td>
+                  <code>ppm</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x13</code>
+                </td>
+                <td>tvoc</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>1</td>
+                <td>
+                  <code>03133301</code>
+                </td>
+                <td>307</td>
+                <td>
+                  <code>ug/m3</code>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <h4>Binary Sensor data</h4>
         <p>
           Binary sensor data should always be a uint8 of a single byte. It's
           value should be <code>1</code> for on, and <code>0</code> for off.
         </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Object id</th>
-              <th>Property</th>
-              <th>Preferred data type</th>
-              <th>Factor</th>
-              <th>example</th>
-              <th>result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>0x0F</code>
-              </td>
-              <td>boolean</td>
-              <td>uint8 (1&nbsp;byte)</td>
-              <td>1</td>
-              <td>
-                <code>020F01</code>
-              </td>
-              <td>1 (True)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x10</code>
-              </td>
-              <td>switch</td>
-              <td>uint8 (1&nbsp;byte)</td>
-              <td>1</td>
-              <td>
-                <code>021001</code>
-              </td>
-              <td>1 (True)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x11</code>
-              </td>
-              <td>opening</td>
-              <td>uint8 (1&nbsp;byte)</td>
-              <td>1</td>
-              <td>
-                <code>021100</code>
-              </td>
-              <td>0 (false)</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Object id</th>
+                <th>Property</th>
+                <th>Preferred data type</th>
+                <th>Factor</th>
+                <th>example</th>
+                <th>result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>0x0F</code>
+                </td>
+                <td>boolean</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>020F01</code>
+                </td>
+                <td>1 (True)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x10</code>
+                </td>
+                <td>switch</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>021001</code>
+                </td>
+                <td>1 (True)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x11</code>
+                </td>
+                <td>opening</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>021100</code>
+                </td>
+                <td>0 (false)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <h4 id="misc-data">Misc data</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Object id</th>
-              <th>Property</th>
-              <th>Preferred data type</th>
-              <th>Factor</th>
-              <th>example</th>
-              <th>result</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>0x00</code>
-              </td>
-              <td>packet id</td>
-              <td>uint8 (1&nbsp;byte)</td>
-              <td>1</td>
-              <td>
-                <code>020009</code>
-              </td>
-              <td>9</td>
-              <td>[1]</td>
-            </tr>
-            <tr>
-              <td>
-                <code>0x07</code>
-              </td>
-              <td>weight unit</td>
-              <td>string (2&nbsp;bytes)</td>
-              <td>None</td>
-              <td>
-                <code>63076B67</code>
-              </td>
-              <td>“kg”</td>
-              <td>[2]</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>mac</td>
-              <td>6 bytes (reversed)</td>
-              <td></td>
-              <td>
-                <code>86A6808FE64854</code>
-              </td>
-              <td>5448E68F80A6</td>
-              <td>[3]</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Object id</th>
+                <th>Property</th>
+                <th>Preferred data type</th>
+                <th>example</th>
+                <th>result</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>0x00</code>
+                </td>
+                <td>packet id</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>020009</code>
+                </td>
+                <td>9</td>
+                <td>[1]</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x07</code>
+                </td>
+                <td>weight unit</td>
+                <td>string (2&nbsp;bytes)</td>
+                <td>
+                  <code>63076B67</code>
+                </td>
+                <td>“kg”</td>
+                <td>[2]</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>mac</td>
+                <td>6 bytes (reversed)</td>
+                <td>
+                  <code>86A6808FE64854</code>
+                </td>
+                <td>5448E68F80A6</td>
+                <td>[3]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p><strong>Notes</strong></p>
         <p>
           Full example payloads for each data type are given in the

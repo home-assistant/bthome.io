@@ -110,6 +110,9 @@ improv-wifi-serial-launch-button[supported] {
 .hidden {
   display: none;
 }
+.table-wrapper {
+  overflow-x: auto;
+}
 table {
   width: 100%;
   border: 1px solid #e3e3e3;
