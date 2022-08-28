@@ -482,7 +482,7 @@
                 <td>
                   <code>0x06</code>
                 </td>
-                <td>weight</td>
+                <td>mass (kg)</td>
                 <td>uint16 (2&nbsp;byte)</td>
                 <td>0.01</td>
                 <td>
@@ -492,7 +492,23 @@
                 <td>
                   <code>kg</code>
                 </td>
-                <td>[2]</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x07</code>
+                </td>
+                <td>mass (lbs)</td>
+                <td>uint16 (2&nbsp;byte)</td>
+                <td>0.01</td>
+                <td>
+                  <code>03073E1D</code>
+                </td>
+                <td>74.86</td>
+                <td>
+                  <code>lbs</code>
+                </td>
+                <td></td>
               </tr>
               <tr>
                 <td>
@@ -504,7 +520,7 @@
                 <td>
                   <code>2308CA06</code>
                 </td>
-                <td>17.386</td>
+                <td>17.38</td>
                 <td>
                   <code>°C</code>
                 </td>
@@ -636,6 +652,22 @@
                 </td>
                 <td></td>
               </tr>
+              <tr>
+                <td>
+                  <code>0x14</code>
+                </td>
+                <td>moisture</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>0314020C</code>
+                </td>
+                <td>30.74</td>
+                <td>
+                  <code>%</code>
+                </td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -719,18 +751,6 @@
                 <td>[1]</td>
               </tr>
               <tr>
-                <td>
-                  <code>0x07</code>
-                </td>
-                <td>weight unit</td>
-                <td>string (2&nbsp;bytes)</td>
-                <td>
-                  <code>63076B67</code>
-                </td>
-                <td>“kg”</td>
-                <td>[2]</td>
-              </tr>
-              <tr>
                 <td></td>
                 <td>mac</td>
                 <td>6 bytes (reversed)</td>
@@ -738,7 +758,7 @@
                   <code>86A6808FE64854</code>
                 </td>
                 <td>5448E68F80A6</td>
-                <td>[3]</td>
+                <td>[2]</td>
               </tr>
             </tbody>
           </table>
@@ -767,23 +787,7 @@
           data.
         </p>
         <p>
-          <strong><em>2. weight (unit)</em></strong>
-        </p>
-        <p>
-          The
-          <code>weight unit</code>
-          is in <code>kg</code> by default, but can be set with the weight unit
-          property. Examples of
-          <code>weight unit</code>
-          packets are:
-        </p>
-        <ul>
-          <li>kg (<code>63076B67</code>)</li>
-          <li>lbs (<code>64076C6273</code>)</li>
-          <li>jin (<code>64076A696E</code>)</li>
-        </ul>
-        <p>
-          <strong><em>3. mac</em></strong>
+          <strong><em>2. mac</em></strong>
         </p>
         <p>
           You don’t have to specify the
@@ -793,7 +797,9 @@
           payload. To do this, set the first byte to
           <code>0x86</code>
           (meaning: object type = 4 (<code>mac</code>) and object length = 6),
-          followed by the MAC in reversed order. No Object id is needed.
+          followed by the MAC in reversed order. No Object id is needed. Note
+          that the use of alternative <code>mac</code> addresses is not
+          supported in Home Assistant.
         </p>
         <h3 id="encryption">Encryption</h3>
         <p>
