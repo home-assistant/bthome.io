@@ -417,7 +417,6 @@
                 <th>example</th>
                 <th>result</th>
                 <th>Unit</th>
-                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -435,7 +434,6 @@
                 <td>
                   <code>%</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -451,7 +449,6 @@
                 <td>
                   <code>°C</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -467,7 +464,6 @@
                 <td>
                   <code>%</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -483,7 +479,6 @@
                 <td>
                   <code>hPa</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -499,7 +494,6 @@
                 <td>
                   <code>lux</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -515,7 +509,6 @@
                 <td>
                   <code>kg</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -531,7 +524,6 @@
                 <td>
                   <code>lbs</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -547,7 +539,6 @@
                 <td>
                   <code>°C</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -560,7 +551,6 @@
                   <code>020960</code>
                 </td>
                 <td>96</td>
-                <td></td>
                 <td></td>
               </tr>
               <tr>
@@ -577,7 +567,6 @@
                 <td>
                   <code>kWh</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -593,7 +582,6 @@
                 <td>
                   <code>W</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -609,7 +597,6 @@
                 <td>
                   <code>V</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -623,9 +610,8 @@
                 </td>
                 <td>3090</td>
                 <td>
-                  <code>kg/m3</code>
+                  <code>ug/m3</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -639,9 +625,8 @@
                 </td>
                 <td>7170</td>
                 <td>
-                  <code>kg/m3</code>
+                  <code>ug/m3</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -657,7 +642,6 @@
                 <td>
                   <code>ppm</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -673,7 +657,6 @@
                 <td>
                   <code>ug/m3</code>
                 </td>
-                <td></td>
               </tr>
               <tr>
                 <td>
@@ -689,7 +672,6 @@
                 <td>
                   <code>%</code>
                 </td>
-                <td></td>
               </tr>
             </tbody>
           </table>
@@ -731,7 +713,7 @@
                 <td>
                   <code>021001</code>
                 </td>
-                <td>1 (True)</td>
+                <td>1 (True = On)</td>
               </tr>
               <tr>
                 <td>
@@ -742,7 +724,7 @@
                 <td>
                   <code>021100</code>
                 </td>
-                <td>0 (false)</td>
+                <td>0 (False = Closed)</td>
               </tr>
             </tbody>
           </table>
@@ -800,7 +782,7 @@
         </p>
         <p>
           The
-          <code>packet id</code> is optional and is used to filter duplicate
+          <code>packet id</code> is optional and can be used to filter duplicate
           data. This allows you to send multiple advertisements that are exactly
           the same, to improve the chance that the advertisement arrives. BTHome
           receivers should only process the advertisement if the
