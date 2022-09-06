@@ -693,6 +693,7 @@
         <p>
           Binary sensor data should always be a uint8 of a single byte. It's
           value should be <code>1</code> for on, and <code>0</code> for off.
+          Note: Binary sensors are not yet supported in Home Assistant.
         </p>
         <div class="table-wrapper">
           <table>
@@ -710,18 +711,18 @@
                 <td>
                   <code>0x0F</code>
                 </td>
-                <td>boolean</td>
+                <td>generic boolean</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
                   <code>020F01</code>
                 </td>
-                <td>1 (True)</td>
+                <td>1 (True = On)</td>
               </tr>
               <tr>
                 <td>
                   <code>0x10</code>
                 </td>
-                <td>switch</td>
+                <td>power</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
                   <code>021001</code>
@@ -738,6 +739,61 @@
                   <code>021100</code>
                 </td>
                 <td>0 (False = Closed)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x15</code>
+                </td>
+                <td>battery</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021500</code>
+                </td>
+                <td>0 (False = Low)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x16</code>
+                </td>
+                <td>battery charging</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021601</code>
+                </td>
+                <td>1 (True = Charging)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x17</code>
+                </td>
+                <td>carbon monoxide</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021700</code>
+                </td>
+                <td>0 (False = Not detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x18</code>
+                </td>
+                <td>cold</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021801</code>
+                </td>
+                <td>1 (True = Cold)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x19</code>
+                </td>
+                <td>connectivity</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021900</code>
+                </td>
+                <td>0 (False = Disconnected)</td>
               </tr>
             </tbody>
           </table>
