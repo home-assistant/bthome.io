@@ -795,6 +795,237 @@
                 </td>
                 <td>0 (False = Disconnected)</td>
               </tr>
+              <tr>
+                <td>
+                  <code>0x1A</code>
+                </td>
+                <td>door</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021A00</code>
+                </td>
+                <td>0 (False = Closed)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x1B</code>
+                </td>
+                <td>garage door</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021B01</code>
+                </td>
+                <td>1 (True = Open)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x1C</code>
+                </td>
+                <td>gas</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021C01</code>
+                </td>
+                <td>1 (True = Detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x1D</code>
+                </td>
+                <td>heat</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021D00</code>
+                </td>
+                <td>0 (False = Normal)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x1E</code>
+                </td>
+                <td>light</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021E01</code>
+                </td>
+                <td>1 (True = Light detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x1F</code>
+                </td>
+                <td>lock</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021F01</code>
+                </td>
+                <td>1 (True = Unlocked)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x20</code>
+                </td>
+                <td>moisture</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022001</code>
+                </td>
+                <td>1 (True = Wet)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x21</code>
+                </td>
+                <td>motion</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022100</code>
+                </td>
+                <td>0 (False = Clear)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x22</code>
+                </td>
+                <td>moving</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022201</code>
+                </td>
+                <td>1 (True = Moving)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x23</code>
+                </td>
+                <td>occupancy</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022301</code>
+                </td>
+                <td>1 (True = Detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x24</code>
+                </td>
+                <td>plug</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022400</code>
+                </td>
+                <td>0 (False = Unplugged)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x25</code>
+                </td>
+                <td>pressence</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022500</code>
+                </td>
+                <td>0 (False = Away)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x26</code>
+                </td>
+                <td>problem</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022601</code>
+                </td>
+                <td>1 (True = Problem)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x27</code>
+                </td>
+                <td>running</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022701</code>
+                </td>
+                <td>1 (True = Running)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x28</code>
+                </td>
+                <td>safety</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022800</code>
+                </td>
+                <td>0 (False = Unsafe)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x29</code>
+                </td>
+                <td>smoke</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022901</code>
+                </td>
+                <td>1 (True = Detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2A</code>
+                </td>
+                <td>sound</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022A00</code>
+                </td>
+                <td>0 (False = Clear)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2B</code>
+                </td>
+                <td>tamper</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022B00</code>
+                </td>
+                <td>0 (False = Off)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2C</code>
+                </td>
+                <td>update</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022C01</code>
+                </td>
+                <td>1 (True = Update available)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2D</code>
+                </td>
+                <td>vibration</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022D01</code>
+                </td>
+                <td>1 (True = Detected)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2E</code>
+                </td>
+                <td>window</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>022E00</code>
+                </td>
+                <td>0 (False = Closed)</td>
+              </tr>
             </tbody>
           </table>
         </div>
