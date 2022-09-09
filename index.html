@@ -144,6 +144,26 @@
           </div>
         </div>
 
+        <div class="project">
+          <div class="logo">
+            <img src="/images/ESP32_BTHome.png" alt="ESP32_BTHome logo" />
+          </div>
+          <div class="info">
+            <h3>ESP32_BTHome</h3>
+            <p>
+              ESP32_BTHome is an example of using an ESP32 to send BLE advertisement packets
+              in the BTHome format in such way that you have a very lightweight, energy efficient
+              sensor. Between the broadcasting of BLE advertisements, the ESP32 will in a sleeping
+              state, making it more suitable for battery powered sensors.
+            </p>
+            <p>
+              <a href="https://github.com/TheDigital1/ESP32_BTHome" target="_blank"
+                >Website</a
+              >
+            </p>
+          </div>
+        </div>
+
         <h3 id="example-data">Example Data</h3>
         <p>
           The format can best be explained with an example. A BLE advertisement
@@ -691,9 +711,9 @@
         </div>
         <h4>Binary Sensor data</h4>
         <p>
-          Binary sensor data should always be a uint8 of a single byte. It's
+          Binary sensor data should always be an uint8 of a single byte. It's
           value should be <code>1</code> for on, and <code>0</code> for off.
-          Note: Binary sensors are not yet supported in Home Assistant.
+          Note: Binary sensors will be supported in Home Assistant 2022.10.
         </p>
         <div class="table-wrapper">
           <table>
