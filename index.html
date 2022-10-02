@@ -48,7 +48,7 @@
         </h2>
 
         <p>
-          BTHome is an energy effective but flexible BLE format for devices to
+          BTHome is an energy efficient but flexible BLE format for devices to
           broadcast their sensor data. Devices can run over a year on a single
           battery. It allows data encryption and is supported by popular home
           automation platforms, like
@@ -333,7 +333,7 @@
           </li>
           <li>
             The object format (bit 5-7)
-            <code>001</code> = 1 = Signed Integer (see table below)
+            <code>001</code> = 1 = signed integer (see table below)
           </li>
         </ul>
         <div class="table-wrapper">
@@ -355,7 +355,7 @@
                   <code>000</code>
                 </td>
                 <td>uint</td>
-                <td>unsingned integer</td>
+                <td>unsigned integer</td>
               </tr>
               <tr>
                 <td>
@@ -408,19 +408,19 @@
           </li>
           <li>
             The remaining bytes
-            <code>0xC409</code> is the object value (little endian), which will
+            <code>0xC409</code> comprise the object value (little-endian), which will
             be multiplied with the factor in the table below to get a sufficient
             number of digits.
             <ul>
               <li>
                 The object length is telling us that the value is 2 bytes long
                 (object length = 3 bytes minus the second byte) and the object
-                format is telling us that the value is an Signed Integer
-                (possitive or negative integer).
+                format is telling us that the value is a signed integer
+                (positive or negative integer).
               </li>
               <li>
                 <code>0xC409</code>
-                as unsigned integer in little endian is equal to 2500.
+                as unsigned integer in little-endian is equal to 2500.
               </li>
               <li>
                 The factor for a temperature measurement is 0.01, resulting in a
@@ -578,7 +578,7 @@
                   <code>0x09</code>
                 </td>
                 <td>count</td>
-                <td>uint</td>
+                <td>uint (4&nbsp;bytes)</td>
                 <td>1</td>
                 <td>
                   <code>020960</code>
@@ -711,7 +711,7 @@
         </div>
         <h4>Binary Sensor data</h4>
         <p>
-          Binary sensor data should always be an uint8 of a single byte. It's
+          Binary sensor data should always be an uint8 of a single byte. Its
           value should be <code>1</code> for on, and <code>0</code> for off.
           Note: Binary sensors will be supported in Home Assistant 2022.10.
         </p>
@@ -940,7 +940,7 @@
                 <td>
                   <code>0x25</code>
                 </td>
-                <td>pressence</td>
+                <td>presence</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
                   <code>022500</code>
