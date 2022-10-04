@@ -500,6 +500,21 @@
               </tr>
               <tr>
                 <td>
+                  <code>0x2E</code>
+                </td>
+                <td>humidity</td>
+                <td>uint1 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>022E23</code>
+                </td>
+                <td>35</td>
+                <td>
+                  <code>%</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <code>0x04</code>
                 </td>
                 <td>pressure</td>
@@ -702,6 +717,21 @@
                   <code>0314020C</code>
                 </td>
                 <td>30.74</td>
+                <td>
+                  <code>%</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2F</code>
+                </td>
+                <td>moisture</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>022F23</code>
+                </td>
+                <td>35</td>
                 <td>
                   <code>%</code>
                 </td>
@@ -1038,7 +1068,240 @@
             </tbody>
           </table>
         </div>
+        <h4>Events</h4>
+        <p>
+          Devices can also send events. Events are a combination of a device
+          type (like a button, switch or dimmer) and an event (like "toggle",
+          "turn_on" or "rotate left 3 steps"). Note: Events are not yet supported
+          in Home Assistant.
+        </p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Object id</th>
+                <th>Device type</th>
+                <th>Event id</th>
+                <th>Event</th>
+                <th>Example</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>0x3A</code>
+                </td>
+                <td>button</td>
+                <td>
+                  <code>0x01</code>
+                </td>
+                <td>turn_on</td>
+                <td>
+                  <code>023A01</code>
+                </td>
+                <td>Button event "turn_on"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x02</code>
+                </td>
+                <td>turn_off</td>
+                <td>
+                  <code>023A02</code>
+                </td>
+                <td>Button event "turn_off"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x03</code>
+                </td>
+                <td>toggle</td>
+                <td>
+                  <code>023A03</code>
+                </td>
+                <td>Button event "toggle"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x3B</code>
+                </td>
+                <td>switch</td>
+                <td>
+                  <code>0x01</code>
+                </td>
+                <td>turn_on</td>
+                <td>
+                  <code>023B01</code>
+                </td>
+                <td>Switch event "turn_on"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x02</code>
+                </td>
+                <td>turn_off</td>
+                <td>
+                  <code>023B02</code>
+                </td>
+                <td>Switch event "turn_off"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x03</code>
+                </td>
+                <td>toggle</td>
+                <td>
+                  <code>023B03</code>
+                </td>
+                <td>Switch event "toggle"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x04</code>
+                </td>
+                <td>press</td>
+                <td>
+                  <code>023B04</code>
+                </td>
+                <td>Switch event "press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x05</code>
+                </td>
+                <td>single_press</td>
+                <td>
+                  <code>023B04</code>
+                </td>
+                <td>Switch event "single_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x06</code>
+                </td>
+                <td>double_press</td>
+                <td>
+                  <code>023B06</code>
+                </td>
+                <td>Switch event "double_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x07</code>
+                </td>
+                <td>triple_press</td>
+                <td>
+                  <code>023B07</code>
+                </td>
+                <td>Switch event "triple_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x08</code>
+                </td>
+                <td>long_press</td>
+                <td>
+                  <code>023B08</code>
+                </td>
+                <td>Switch event "long_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x09</code>
+                </td>
+                <td>long_single_press</td>
+                <td>
+                  <code>023B09</code>
+                </td>
+                <td>Switch event "long_single_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x0A</code>
+                </td>
+                <td>long_double_press</td>
+                <td>
+                  <code>023B0A</code>
+                </td>
+                <td>Switch event "long_double_press"</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x0B</code>
+                </td>
+                <td>long_triple_press</td>
+                <td>
+                  <code>023B0B</code>
+                </td>
+                <td>Switch event "long_triple_press"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <h4 id="misc-data">Misc data</h4>
+        <h5>Packet id</h5>
+        <p>
+          The
+          <code>packet id</code> is optional and can be used to filter duplicate
+          data. This allows you to send multiple advertisements that are exactly
+          the same, to improve the chance that the advertisement arrives. BTHome
+          receivers should only process the advertisement if the
+          <code>packet id</code> is different compared to the previous one. The
+          <code>packet id</code> is a value between 0 (<code>0x00</code>) and
+          255 (<code>0xFF</code>), and should be increased on every change in
+          data. Note that the <code>packet id</code> is not used in the Home
+          Assistant integration, as Home Assistant has its own deduplication
+          mechanism.
+        </p>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -1062,43 +1325,9 @@
                 </td>
                 <td>9</td>
               </tr>
-              <tr>
-                <td></td>
-                <td>mac</td>
-                <td>6 bytes (reversed)</td>
-                <td>
-                  <code>86A6808FE64854</code>
-                </td>
-                <td>5448E68F80A6</td>
-              </tr>
             </tbody>
           </table>
         </div>
-        <h5>Packet id</h5>
-        <p>
-          The
-          <code>packet id</code> is optional and can be used to filter duplicate
-          data. This allows you to send multiple advertisements that are exactly
-          the same, to improve the chance that the advertisement arrives. BTHome
-          receivers should only process the advertisement if the
-          <code>packet id</code> is different compared to the previous one. The
-          <code>packet id</code> is a value between 0 (<code>0x00</code>) and
-          255 (<code>0xFF</code>), and should be increased on every change in
-          data.
-        </p>
-        <h5>MAC address</h5>
-        <p>
-          You don’t have to specify the
-          <code>mac</code> address in the advertising payload, as it is already
-          included in the <a href="#header">header</a>. However, you can
-          overwrite the <code>mac</code> by specifying it in the advertising
-          payload. To do this, set the first byte to
-          <code>0x86</code>
-          (meaning: object type = 4 (<code>mac</code>) and object length = 6),
-          followed by the MAC in reversed order. No Object id is needed. Note
-          that the use of alternative <code>mac</code> addresses is not
-          supported in Home Assistant.
-        </p>
         <h3 id="encryption">Encryption</h3>
         <p>
           Unencrypted BLE advertisements can be read by anyone nearby listening
