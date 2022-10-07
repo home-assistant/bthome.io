@@ -190,8 +190,8 @@
           is a long message with bytes (bytestring).
         </p>
         <code style="word-break: break-word">
-          043E2702010000A5808FE648541B
-          0201060B094449592D73656E736F720B161C182302C4090303BF13 CC
+          043E1E02010000A5808FE6485412
+          0201060E16FCD24202012302C4090303BF13 CC
         </code>
         <p>
           This message is split up in three parts, the <strong>header</strong>,
@@ -201,11 +201,11 @@
         <ul>
           <li>
             Header:
-            <code>043E2702010000A5808FE648541B</code>
+            <code>043E1E02010000A5808FE6485412</code>
           </li>
           <li style="word-break: break-word">
             Advertising payload
-            <code>0201060B094449592D73656E736F720B161C182302C4090303BF13</code>
+            <code>0201060E16FCD24202012302C4090303BF13</code>
           </li>
           <li>
             RSSI value
@@ -215,13 +215,14 @@
         <h3 id="header">Header</h3>
         <p>
           The first part
-          <code>043E2702010000A5808FE648541B</code>
-          is the header of the message and contains, amongst others
+          <code>043E1E02010000A5808FE6485412</code>
+          is the header of the message. The format is defined by the Bluetooth SIG
+          organisation and contains, amongst others
         </p>
         <ul>
           <li>
-            the length of the message in the 3rd byte (<code>0x27</code>
-            in hex is 39 in decimals, meaning 39 bytes after the third byte = 42
+            the length of the message in the third byte (<code>0x1E</code>
+            in hex is 30 in decimals, meaning 30 bytes after the third byte = 33
             bytes in total)
           </li>
           <li>
@@ -231,14 +232,14 @@
             <code>54:48:E6:8F:80:A5</code>)
           </li>
           <li>
-            the length of the advertising payload in byte 14 (<code>0x1B</code>
-            = 27)
+            the length of the advertising payload in byte 14 (<code>0x12</code>
+            = 18)
           </li>
         </ul>
         <h3 id="advertising-payload">Advertising payload</h3>
         <p>
           The second part
-          <code>020106 0B094449592D73656E736F72 0B161C182302C4090303BF13</code>
+          <code>020106 0E16FCD24202012302C4090303BF13</code>
           contains the advertising payload, and can consist of one or more
           <strong>Advertising Data (AD) elements</strong>. Each element contains
           the following:
@@ -255,38 +256,49 @@
           </li>
         </ul>
         <p>
-          The advertising payload should contain the following three AD
-          elements:
+          The advertising payload in BTHome format should at least contain the
+          AD elements <strong>Flags</strong> and <strong>Service Data (16 bits
+          UUID)</strong>. Optionally, you can add a <strong>Local Name</strong>.
         </p>
+        <strong>Flags (<code>0x01</code>)</strong><br />
+        <p>
+          The flag value has several bits indicating the capabilities of the device.
+          This part is always the same for BTHome (<code>0x020106</code>).
+        </p>
+          Flags data: <code>020106</code>
         <ul>
-          <li>Flags (<code>0x01</code>)</li>
+          <li><code>0x02</code> = length (2 bytes)</li>
+          <li><code>0x01</code> = Flags</li>
           <li>
-            Shortened local name (<code>0x08</code>) or Complete local name
-            (<code>0x09</code>)
+            <code>0x06</code> = in bits, this is <code>00000110</code>.<br />
+            bit 1 and bit 2 are 1, meaning: <br />
+            bit 1: “LE General Discoverable Mode” <br />
+            bit 2: “BR/EDR Not Supported”
           </li>
-          <li>UUID16 (<code>0x16</code>)</li>
         </ul>
-        <p>In the example, we have:</p>
+        <strong>Service data (16-bit UUID) (<code>0x16</code>)</strong><br />
+        <p>The service data contains the actual data. In the example, we have:</p>
         <ul>
           <li>
-            First AD element:
-            <code>020106</code>
+            Service data (16-bit UUID):
+            <code>0E 16 FCD24202002302C4090303BF13</code>
+            (BTHome data)
             <ul>
-              <li><code>0x02</code> = length (2 bytes)</li>
-              <li><code>0x01</code> = Flags</li>
-              <li>
-                <code>0x06</code> = in bits, this is <code>00000110</code>. Bit
-                1 and bit 2 are 1, meaning: Bit 1: “LE General Discoverable
-                Mode” Bit 2: “BR/EDR Not Supported”
-              </li>
-              <li>
-                This part always has to be added, and is always the same
-                (<code>0x020106</code>)
-              </li>
+              <li><code>0x0E</code> = length (14 bytes)</li>
+              <li><code>0x16</code> = Service Data - 16-bit UUID</li>
+              <li><code>0xFCD24202002302C4090303BF13</code> = BTHome data (see below)</li>
             </ul>
           </li>
+        </ul>
+        <strong>Local Name (<code>0x08</code> or <code>0x09</code>)</strong><br />
+        <p>
+          Optional AD element is the local name,
+          either the Shortened local name (<code>0x08</code>)
+          or Complete local name (<code>0x09</code>).
+        </p>
+        <ul>
           <li>
-            Second AD element:
+            Example of Complete local name:
             <code>0B094449592D73656E736F72</code>
             <ul>
               <li><code>0x0B</code> = length (11 bytes)</li>
@@ -299,49 +311,61 @@
                   >After converting it to text</a
                 >
                 , it corresponds to "DIY-sensor". The name can be used to
-                identify your sensor.
+                identify your sensor, when not using a predefined sensor.
               </li>
             </ul>
           </li>
-          <li>
-            Third AD element:
-            <code>0B 16 1C182302C4090303BF13</code>
-            (BTHome data)
-            <ul>
-              <li><code>0x0B</code> = length (11 bytes)</li>
-              <li><code>0x16</code> = Service Data - 16-bit UUID</li>
-              <li><code>0x1C182302C4090303BF13</code> = BTHome data</li>
-            </ul>
-          </li>
         </ul>
-        <h4 id="bthome-data-format">BTHome Data format</h4>
+        <h3 id="bthome-data-format">BTHome Data format</h3>
         <p>
-          The BTHome data can contain multiple measurements. We continue with
-          the example from above.
+          The BTHome (service) data contains the <strong>16 bit UUID</strong>,
+          the <strong>BTHome Device Information</strong> and one or
+          multiple <strong>Measurements</strong>. <br /><br />In the
+          example we have the following BTHome data:<br />
+          <code>0xFCD2 420100 2302C409 0303BF13</code>
         </p>
-        BTHome data =
-        <code>0x1C18 2302C409 0303BF13</code>
+        <strong>UUID <code>0xFCD2</code></strong><br />
+        <p>
+          This UUID should be used by receivers to recognize BTHome
+          messages.<br /><br />
+          Allterco Robotics, the manufacturer of Shelly devices, has sponsored the UUID
+          <code>0xFCD2</code> for BTHome and it's free to use for everyone, as
+          long as you use it with the BTHome format. ADD LINK TO LICENSE.
+        </p>
+        <strong>BTHome Device Information <code>0x42 0200</code></strong><br />
+        <p>
+          The first byte after the UUID <code>0x42</code> is the BTHome device info byte,
+          which has several bits indicating the capabilities of the device.
+        </p>
         <ul>
-          <li>
-            <code>0x1C18</code>
-            = The first two byte are the UUID16. Use <code>0x1C18</code> for
-            non-encrypted messages and <code>0x1E18</code> for encrypted data.
-            This data should be used by receivers to recognize BTHome
-            messages.<br /><br />More information about encryption can be found
-            <a href="#encryption">further down this page</a>.
-          </li>
-          <li>
-            <code>0x23 02 C409</code>
-            = Temperature packet
-          </li>
-          <li>
-            <code>0x03 03 BF13</code>
-            = Humidity packet
-          </li>
+          <li>bit 0: “Encryption flag”</li>
+          <li>bit 1: “Predefined device information flag”</li>
+          <li>bit 2-4: “Reserved for future use”</li>
+          <li>bit 5-7: “BTHome Version”</li>
         </ul>
         <p>
-          Lets explain how the last two data packets work. The temperature
-          packet is used as example. The first byte
+          In the example, we have <code>0x42</code>.
+          In bits, this is <code>01000010</code>.
+          Note. bit 0 is the most right number, bit 7 is the most left bit<br />
+        </p>
+        <ul>
+          <li>bit 0: <code>0</code> = False: No encryption</li>
+          <li>bit 1: <code>1</code> = True: Use predefined device information</li>
+          <li>bit 5-7: <code>010</code> = 2: BTHome Version 2. <br />
+            Other versions numbers are currently not allowed</li>
+        </ul>
+        <p>
+          Because we have set the predefined device information flag to True,
+          we have to add two extra bytes that correspond to a device in the
+          <a href="https://github.com/Bluetooth-Devices/bthome-ble/tree/main/src/bthome_ble/">devices.py</a> file. In the
+          example, we have <code>0x0200</code>, which is assigned to a b-parasite device. ADD LINK TO DEVICES FILE.
+          Using a predefined device has the advantage that you only need two bytes to send all device information.
+          In this way, it is not needed to send the Local Name AD element. If you want a device added to the
+          list, make a request on <a href="https://github.com/Bluetooth-Devices/bthome-ble/issues/">GitHub</a>.
+        </p>
+        <strong>Measurement<code>0x23 02 C409</code></strong><br />
+        <p>
+          The first measurement is a temperature measurement in the example. The first byte
           <code>0x23</code> (in bits <code>00100 011</code>) is giving
           information about:
         </p>
@@ -454,7 +478,7 @@
           <i>
             <a
               href="https://github.com/custom-components/ble_monitor/blob/master/custom_components/ble_monitor/test/test_bthome.py"
-              >Full example payloads for each data type.</a
+              >Full example payloads for each data type. UPDATE LINK TO V2 EXAMPLES</a
             >
           </i>
         </p>
@@ -1368,19 +1392,31 @@
         <p>
           The goal of the BTHome standard is to share sensor data efficiently
           via Bluetooth LE discovery packets. It is not the goal to offer a way
-          for devices to share control.
+          for devices to share control.<br /><br />
+          The BTHome 16 bit UUID has been sponsored by Allterco, who purchased the UUID
+          for us at the Bluetooth SIG organisation. Allterco is more familiar to most of you as Shelly.
+          Alltreco has made a license available for everyone to use the format for free, as long as
+          you follow the (V2) format that is defined on this website. If you want to develop
+          devices with BTHome, and you want to asure that it is really free, you can <a
+            href="/images/License_Statement_-_BTHOME.pdf"
+            >download the license.</a
+          >
         </p>
       </div>
 
       <div class="footer">
         <div>
           BTHome &nbsp; – &nbsp;
-          <a href="https://github.com/home-assistant/bthome.io/">GitHub</a>
+          <a href="https://github.com/Bluetooth-Devices/bthome-ble/issues/">GitHub</a>
         </div>
         <div class="initiative">
           BTHome is created by
           <a href="https://github.com/ernst79">Ernst Klamer</a> with the help of
           <a href="https://github.com/pvvx">Victor</a>.
+        </div>
+        <div class="initiative">
+          BTHome is sponsored by
+          <a href="https://shelly.cloud/">Shelly</a>
         </div>
       </div>
     </div>
