@@ -172,8 +172,8 @@
             <h3>bthome-weather-station</h3>
             <p>
               bthome-weather-station is an example of using the Espressif IoT Development Framework (ESP-IDF)
-              to read sensor data and send BLE advertisement packets in the BTHome format.  It includes reading data,
-              encoding to BTHome format, deep sleep and utilization of multiple cores for speed.  The aim is to
+              to read sensor data and send BLE advertisement packets in the BTHome format. It includes reading data,
+              encoding to BTHome format, deep sleep and utilization of multiple cores for speed. The aim is to
               be easily extensible for adding your own sensors using I2C.
             </p>
             <p>
@@ -324,15 +324,15 @@
           example we have the following BTHome data:<br />
           <code>0xFCD2 420100 2302C409 0303BF13</code>
         </p>
-        <strong>UUID <code>0xFCD2</code></strong><br />
+        <strong>UUID (<code>0xFCD2</code>)</strong><br />
         <p>
           This UUID should be used by receivers to recognize BTHome
           messages.<br /><br />
           Allterco Robotics, the manufacturer of Shelly devices, has sponsored the UUID
           <code>0xFCD2</code> for BTHome and it's free to use for everyone, as
-          long as you use it with the BTHome format. ADD LINK TO LICENSE.
+          long as you use it with the BTHome format.
         </p>
-        <strong>BTHome Device Information <code>0x42 0200</code></strong><br />
+        <strong>BTHome Device Information (<code>0x42 0200</code>)</strong><br />
         <p>
           The first byte after the UUID <code>0x42</code> is the BTHome device info byte,
           which has several bits indicating the capabilities of the device.
@@ -363,7 +363,7 @@
           In this way, it is not needed to send the Local Name AD element. If you want a device added to the
           list, make a request on <a href="https://github.com/Bluetooth-Devices/bthome-ble/issues/">GitHub</a>.
         </p>
-        <strong>Measurement <code>0x23 02 C409</code></strong><br />
+        <strong>Measurement (<code>0x23 02 C409</code>)</strong><br />
         <p>
           The first measurement is a temperature measurement in the example. The first byte
           <code>0x23</code> (in bits <code>00100 011</code>) is giving
@@ -1388,6 +1388,17 @@
           >.
         </p>
 
+        <h3 id="multiple_measurements">Multiple measurements of the same type</h3>
+        <p>
+          If you want to send multiple measurements of the same type, e.g. three temperatures,
+          you can just add multiple measurements of the same type to the payload. A
+          <code>device_id</code> (1, 2, 3 etc.) will be added in the order of which you define
+          the measurements. Note that this implies that you will need to use the same order in each
+          advertisement,to prevent temperatures being assigned to the wrong <code>device_id</code>.
+          This <code>device_id</code> has to be used in your Home Automation software by appending
+          the <code>device_id</code> to the entity (e.g. Temperature 2). If only one measurement
+          of a certain type is sent, the <code>device_id</code> will be <code>None</code>.
+        </p>
         <h3 id="scope-constraints">Scope & Constraints</h3>
         <p>
           The goal of the BTHome standard is to share sensor data efficiently
