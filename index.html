@@ -48,7 +48,7 @@
         </h2>
 
         <p>
-          BTHome is an energy effective but flexible BLE format for devices to
+          BTHome is an energy efficient but flexible BLE format for devices to
           broadcast their sensor data. Devices can run over a year on a single
           battery. It allows data encryption and is supported by popular home
           automation platforms, like
@@ -158,6 +158,26 @@
             </p>
             <p>
               <a href="https://github.com/TheDigital1/ESP32_BTHome" target="_blank"
+                >Website</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="logo">
+            <img src="/images/esp32.png" alt="ESP32 logo" />
+          </div>
+          <div class="info">
+            <h3>bthome-weather-station</h3>
+            <p>
+              bthome-weather-station is an example of using the Espressif IoT Development Framework (ESP-IDF)
+              to read sensor data and send BLE advertisement packets in the BTHome format.  It includes reading data,
+              encoding to BTHome format, deep sleep and utilization of multiple cores for speed.  The aim is to
+              be easily extensible for adding your own sensors using I2C.
+            </p>
+            <p>
+              <a href="https://github.com/stumpylog/bthome-weather-station" target="_blank"
                 >Website</a
               >
             </p>
@@ -343,7 +363,7 @@
           In this way, it is not needed to send the Local Name AD element. If you want a device added to the
           list, make a request on <a href="https://github.com/Bluetooth-Devices/bthome-ble/issues/">GitHub</a>.
         </p>
-        <strong>Measurement<code>0x23 02 C409</code></strong><br />
+        <strong>Measurement <code>0x23 02 C409</code></strong><br />
         <p>
           The first measurement is a temperature measurement in the example. The first byte
           <code>0x23</code> (in bits <code>00100 011</code>) is giving
