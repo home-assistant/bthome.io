@@ -348,14 +348,10 @@
         </p>
         <ul>
           <li>bit 0: “Encryption flag”</li>
-          <li>bit 1: “Device information available flag" (not yet implemented)</li>
-          <li>bit 2-4: “Reserved for future use”</li>
+          <li>bit 1-4: “Reserved for future use”</li>
           <li>bit 5-7: “BTHome Version”</li>
         </ul>
         <p>
-          The device information available flag isn't used yet, but will be used in
-          a future release to tell the BTHome receiver that information about the
-          device is available by reading a certain GATT characteristic.<br /><br />
           In the example, we have <code>0x40</code>.
           After
           <a href="https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html">converting</a>,
@@ -364,7 +360,6 @@
         </p>
         <ul>
           <li>bit 0: <code>0</code> = False: No encryption</li>
-          <li>bit 1: <code>0</code> = False: No device information available</li>
           <li>bit 5-7: <code>010</code> = 2: BTHome Version 2.<br />
             Other versions numbers are currently not allowed</li>
         </ul>
