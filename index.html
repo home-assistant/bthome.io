@@ -366,8 +366,7 @@
         <ul>
           <li>
           The first measurement is a temperature measurement in the example. The first byte
-            <code>0x02</code> is defining the type of measurement (temperature,
-            see table below)
+            <code>0x02</code> is defining the type of measurement (temperature, see table below)
           </li>
           <li>
             The remaining bytes
@@ -403,6 +402,13 @@
             with a factor 0.01, this becomes a humidity of 50.55%.
           </li>
         </ul>
+        <p>
+          It is strongly advised to use object ids in numerical order (from low to high) in your advertisement.
+          This will make sure that if you have a device (sensor) that is broadcasting a new measurement type
+          that is added in a new (minor) BTHome update, while your BTHome receiver isn't updated yet to the same
+          version, it will still be able to receive the older supported measurement types. A BTHome receiver will
+          stop parsing object ids as soon as it finds an object id that isn't supported.
+        </p>
         <h3 id="supported-data">Supported data types</h3>
         <p>
           <i>
