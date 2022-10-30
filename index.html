@@ -403,7 +403,7 @@
           </li>
         </ul>
         <p>
-          It is strongly advised to use object ids in numerical order (from low to high) in your advertisement.
+          Object ids have to be applied in numerical order (from low to high) in your advertisement.
           This will make sure that if you have a device (sensor) that is broadcasting a new measurement type
           that is added in a new (minor) BTHome update, while your BTHome receiver isn't updated yet to the same
           version, it will still be able to receive the older supported measurement types. A BTHome receiver will
@@ -746,6 +746,15 @@
             </tbody>
           </table>
         </div>
+        <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
+        <p>
+          If you want to send multiple measurements of the same type, e.g. three temperatures,
+          you can just add multiple measurements of the same type to the payload. A
+          postfix will be added to the measurement name (e.g. temperature_2) in the order
+          of which you define the measurements. Note that this implies that you will need to use
+          the same order in each advertisement, to prevent measurements being assigned to the wrong
+          entity. If only one measurement of a certain type is sent, no postfix will be used.
+        </p>
         <h4>Binary Sensor data</h4>
         <p>
           Binary sensor data should always be an uint8 of a single byte. Its
@@ -1133,12 +1142,12 @@
                 <td>
                   <code>0x02</code>
                 </td>
-                <td>single_press</td>
+                <td>double_press</td>
                 <td></td>
                 <td>
                   <code>3A02</code>
                 </td>
-                <td>single_press</td>
+                <td>double_press</td>
               </tr>
               <tr>
                 <td>
@@ -1148,12 +1157,12 @@
                 <td>
                   <code>0x03</code>
                 </td>
-                <td>double_press</td>
+                <td>triple_press</td>
                 <td></td>
                 <td>
                   <code>3A03</code>
                 </td>
-                <td>double_press</td>
+                <td>triple_press</td>
               </tr>
               <tr>
                 <td>
@@ -1163,12 +1172,12 @@
                 <td>
                   <code>0x04</code>
                 </td>
-                <td>triple_press</td>
+                <td>long_press</td>
                 <td></td>
                 <td>
                   <code>3A04</code>
                 </td>
-                <td>triple_press</td>
+                <td>long_press</td>
               </tr>
               <tr>
                 <td>
@@ -1178,12 +1187,12 @@
                 <td>
                   <code>0x05</code>
                 </td>
-                <td>long_press</td>
+                <td>long_double_press</td>
                 <td></td>
                 <td>
                   <code>3A05</code>
                 </td>
-                <td>long_press</td>
+                <td>long_double_press</td>
               </tr>
               <tr>
                 <td>
@@ -1193,43 +1202,14 @@
                 <td>
                   <code>0x06</code>
                 </td>
-                <td>long_single_press</td>
+                <td>long_triple_press</td>
                 <td></td>
                 <td>
                   <code>3A06</code>
                 </td>
-                <td>long_single_press</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x07</code>
-                </td>
-                <td>long_double_press</td>
-                <td></td>
-                <td>
-                  <code>3A07</code>
-                </td>
-                <td>long_double_press</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x08</code>
-                </td>
-                <td>long_triple_press</td>
-                <td></td>
-                <td>
-                  <code>3A08</code>
-                </td>
                 <td>long_triple_press</td>
               </tr>
+              <tr>
                 <td>
                   <code>0x3C</code>
                 </td>
@@ -1277,6 +1257,15 @@
             </tbody>
           </table>
         </div>
+        <h5 id="multiple_events">Multiple events of the same type</h5>
+        <p>
+          Similar as for sensors and binary sensors, you can also send multiple events of the
+          same type, by just adding them behind each other. The event `0x00` (None) is a special
+          event that can be used in case you e.g. have a device with two buttons,
+          and you only want to send an event for the 2nd button.
+          An event <code>3A003A01</code> will send no event for the first button, and an event "press" for
+          the second button.
+        </p>
         <h4 id="misc-data">Misc data</h4>
         <h5>Packet id</h5>
         <p>
@@ -1334,20 +1323,6 @@
           >.
         </p>
 
-        <h3 id="multiple_measurements">Multiple measurements/events of the same type</h3>
-        <p>
-          If you want to send multiple measurements of the same type, e.g. three temperatures,
-          you can just add multiple measurements of the same type to the payload. A
-          postfix will be added to the measurement name (e.g. temperature_2) in the order
-          of which you define the measurements. Note that this implies that you will need to use
-          the same order in each advertisement, to prevent measurements being assigned to the wrong
-          entity. If only one measurement of a certain type is sent, no postfix will be used.
-          <br /><br />
-          For events, a special event `0x00` (None) is available, e.g. in case you have a
-          device with two buttons and you only want to send an event for the 2nd button.
-          An event `3A003A01` will send no event for the first button, and an event "press" for
-          the second button.
-        </p>
         <h3 id="scope-constraints">Scope & Constraints</h3>
         <p>
           The goal of the BTHome standard is to share sensor data efficiently
