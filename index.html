@@ -366,8 +366,7 @@
         <ul>
           <li>
           The first measurement is a temperature measurement in the example. The first byte
-            <code>0x02</code> is defining the type of measurement (temperature,
-            see table below)
+            <code>0x02</code> is defining the type of measurement (temperature, see table below)
           </li>
           <li>
             The remaining bytes
@@ -403,6 +402,13 @@
             with a factor 0.01, this becomes a humidity of 50.55%.
           </li>
         </ul>
+        <p>
+          Object ids have to be applied in numerical order (from low to high) in your advertisement.
+          This will make sure that if you have a device (sensor) that is broadcasting a new measurement type
+          that is added in a new (minor) BTHome update, while your BTHome receiver isn't updated yet to the same
+          version, it will still be able to receive the older supported measurement types. A BTHome receiver will
+          stop parsing object ids as soon as it finds an object id that isn't supported.
+        </p>
         <h3 id="supported-data">Supported data types</h3>
         <p>
           <i>
@@ -740,6 +746,15 @@
             </tbody>
           </table>
         </div>
+        <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
+        <p>
+          If you want to send multiple measurements of the same type, e.g. three temperatures,
+          you can just add multiple measurements of the same type to the payload. A
+          postfix will be added to the measurement name (e.g. temperature_2) in the order
+          of which you define the measurements. Note that this implies that you will need to use
+          the same order in each advertisement, to prevent measurements being assigned to the wrong
+          entity. If only one measurement of a certain type is sent, no postfix will be used.
+        </p>
         <h4>Binary Sensor data</h4>
         <p>
           Binary sensor data should always be an uint8 of a single byte. Its
@@ -1082,7 +1097,8 @@
                 <th>Object id</th>
                 <th>Device type</th>
                 <th>Event id</th>
-                <th>Event</th>
+                <th>Event type</th>
+                <th>Event property</th>
                 <th>Example</th>
                 <th>Result</th>
               </tr>
@@ -1094,13 +1110,29 @@
                 </td>
                 <td>button</td>
                 <td>
+                  <code>0x00</code>
+                </td>
+                <td>None</td>
+                <td></td>
+                <td>
+                  <code>3A00</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
                   <code>0x01</code>
                 </td>
-                <td>turn_on</td>
+                <td>press</td>
+                <td></td>
                 <td>
-                  <code>023A01</code>
+                  <code>3A01</code>
                 </td>
-                <td>Button event "turn_on"</td>
+                <td>press</td>
               </tr>
               <tr>
                 <td>
@@ -1110,11 +1142,12 @@
                 <td>
                   <code>0x02</code>
                 </td>
-                <td>turn_off</td>
+                <td>double_press</td>
+                <td></td>
                 <td>
-                  <code>023A02</code>
+                  <code>3A02</code>
                 </td>
-                <td>Button event "turn_off"</td>
+                <td>double_press</td>
               </tr>
               <tr>
                 <td>
@@ -1124,53 +1157,12 @@
                 <td>
                   <code>0x03</code>
                 </td>
-                <td>toggle</td>
-                <td>
-                  <code>023A03</code>
-                </td>
-                <td>Button event "toggle"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x3B</code>
-                </td>
-                <td>switch</td>
-                <td>
-                  <code>0x01</code>
-                </td>
-                <td>turn_on</td>
-                <td>
-                  <code>023B01</code>
-                </td>
-                <td>Switch event "turn_on"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
+                <td>triple_press</td>
                 <td></td>
                 <td>
-                  <code>0x02</code>
+                  <code>3A03</code>
                 </td>
-                <td>turn_off</td>
-                <td>
-                  <code>023B02</code>
-                </td>
-                <td>Switch event "turn_off"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x03</code>
-                </td>
-                <td>toggle</td>
-                <td>
-                  <code>023B03</code>
-                </td>
-                <td>Switch event "toggle"</td>
+                <td>triple_press</td>
               </tr>
               <tr>
                 <td>
@@ -1180,11 +1172,12 @@
                 <td>
                   <code>0x04</code>
                 </td>
-                <td>press</td>
+                <td>long_press</td>
+                <td></td>
                 <td>
-                  <code>023B04</code>
+                  <code>3A04</code>
                 </td>
-                <td>Switch event "press"</td>
+                <td>long_press</td>
               </tr>
               <tr>
                 <td>
@@ -1194,11 +1187,12 @@
                 <td>
                   <code>0x05</code>
                 </td>
-                <td>single_press</td>
+                <td>long_double_press</td>
+                <td></td>
                 <td>
-                  <code>023B04</code>
+                  <code>3A05</code>
                 </td>
-                <td>Switch event "single_press"</td>
+                <td>long_double_press</td>
               </tr>
               <tr>
                 <td>
@@ -1208,85 +1202,70 @@
                 <td>
                   <code>0x06</code>
                 </td>
-                <td>double_press</td>
-                <td>
-                  <code>023B06</code>
-                </td>
-                <td>Switch event "double_press"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
+                <td>long_triple_press</td>
                 <td></td>
                 <td>
-                  <code>0x07</code>
-                </td>
-                <td>triple_press</td>
-                <td>
-                  <code>023B07</code>
-                </td>
-                <td>Switch event "triple_press"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x08</code>
-                </td>
-                <td>long_press</td>
-                <td>
-                  <code>023B08</code>
-                </td>
-                <td>Switch event "long_press"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x09</code>
-                </td>
-                <td>long_single_press</td>
-                <td>
-                  <code>023B09</code>
-                </td>
-                <td>Switch event "long_single_press"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x0A</code>
-                </td>
-                <td>long_double_press</td>
-                <td>
-                  <code>023B0A</code>
-                </td>
-                <td>Switch event "long_double_press"</td>
-              </tr>
-              <tr>
-                <td>
-                  <code></code>
-                </td>
-                <td></td>
-                <td>
-                  <code>0x0B</code>
+                  <code>3A06</code>
                 </td>
                 <td>long_triple_press</td>
+              </tr>
+              <tr>
                 <td>
-                  <code>023B0B</code>
+                  <code>0x3C</code>
                 </td>
-                <td>Switch event "long_triple_press"</td>
+                <td>dimmer</td>
+                <td>
+                  <code>0x00</code>
+                </td>
+                <td>None</td>
+                <td></td>
+                <td>
+                  <code>3C00</code>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x01</code>
+                </td>
+                <td>rotate left</td>
+                <td># steps</td>
+                <td>
+                  <code>3C0103</code>
+                </td>
+                <td>rotate left 3 steps</td>
+              </tr>
+              <tr>
+                <td>
+                  <code></code>
+                </td>
+                <td></td>
+                <td>
+                  <code>0x02</code>
+                </td>
+                <td>rotate right</td>
+                <td># steps</td>
+                <td>
+                  <code>3C020A</code>
+                </td>
+                <td>rotate right 10 steps</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <h5 id="multiple_events">Multiple events of the same type</h5>
+        <p>
+          Similar as for sensors and binary sensors, you can also send multiple events of the
+          same type, by just adding them behind each other. The event `0x00` (None) is a special
+          event that can be used in case you e.g. have a device with two buttons,
+          and you only want to send an event for the 2nd button.
+          An event <code>3A003A01</code> will send no event for the first button, and an event "press" for
+          the second button.
+        </p>
         <h4 id="misc-data">Misc data</h4>
         <h5>Packet id</h5>
         <p>
@@ -1344,15 +1323,6 @@
           >.
         </p>
 
-        <h3 id="multiple_measurements">Multiple measurements of the same type</h3>
-        <p>
-          If you want to send multiple measurements of the same type, e.g. three temperatures,
-          you can just add multiple measurements of the same type to the payload. A
-          postfix will be added to the measurement name (e.g. temperature_2) in the order
-          of which you define the measurements. Note that this implies that you will need to use
-          the same order in each advertisement, to prevent measurements being assigned to the wrong
-          entity. If only one measurement of a certain type is sent, no postfix will be used.
-        </p>
         <h3 id="scope-constraints">Scope & Constraints</h3>
         <p>
           The goal of the BTHome standard is to share sensor data efficiently
