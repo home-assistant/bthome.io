@@ -43,17 +43,20 @@
 
       <div class="content">
         <h2>
-          BTHome V2 is an open standard for broadcasting sensor data over Bluetooth
+          BTHome is an open standard for broadcasting sensor data over Bluetooth
           LE
         </h2>
 
         <p>
-          BTHome V2 is an energy efficient but flexible BLE format for devices to
+          BTHome is an energy efficient but flexible BLE format for devices to
           broadcast their sensor data. Devices can run over a year on a single
           battery. It allows data encryption and is supported by popular home
           automation platforms, like
-          <a href="https://www.home-assistant.io">Home&nbsp;Assistant</a>, out
-          of the box.
+          <a href="https://www.home-assistant.io">Home&nbsp;Assistant</a>
+          , out of the box. This webpage is providing information about
+          <strong>the deprecated BTHome V1 format.</strong> It is advised to
+          update your sensors and use
+          <a href="https://www.bthome.io">the new BTHome V2 format</a>.
         </p>
 
         <img
@@ -172,8 +175,8 @@
             <h3>bthome-weather-station</h3>
             <p>
               bthome-weather-station is an example of using the Espressif IoT Development Framework (ESP-IDF)
-              to read sensor data and send BLE advertisement packets in the BTHome format. It includes reading data,
-              encoding to BTHome format, deep sleep and utilization of multiple cores for speed. The aim is to
+              to read sensor data and send BLE advertisement packets in the BTHome format.  It includes reading data,
+              encoding to BTHome format, deep sleep and utilization of multiple cores for speed.  The aim is to
               be easily extensible for adding your own sensors using I2C.
             </p>
             <p>
@@ -184,16 +187,14 @@
           </div>
         </div>
 
-        <h3 id="ble-advertising">BLE advertising in the BTHome V2 format</h3>
+        <h3 id="example-data">Example Data</h3>
         <p>
-          We assume that you understand the basics of BLE advertisements (if not,
-          <a href="https://www.bluetooth.com/blog/bluetooth-low-energy-it-starts-with-advertising/" target="_blank"
-            >read this</a>). The BTHome V2 format can best be explained with an example.
-            A BLE advertisement is a long message with bytes (bytestring).
+          The format can best be explained with an example. A BLE advertisement
+          is a long message with bytes (bytestring).
         </p>
         <code style="word-break: break-word">
-          043E2602010000A5808FE648541A
-          0201060B094449592D73656E736F720A16FCD24002C40903BF13 CC
+          043E2702010000A5808FE648541B
+          0201060B094449592D73656E736F720B161C182302C4090303BF13 CC
         </code>
         <p>
           This message is split up in three parts, the <strong>header</strong>,
@@ -203,29 +204,27 @@
         <ul>
           <li>
             Header:
-            <code>043E2602010000A5808FE648541A</code>
+            <code>043E2702010000A5808FE648541B</code>
           </li>
           <li style="word-break: break-word">
             Advertising payload
-            <code>0201060B094449592D73656E736F720A16FCD24002C40903BF13</code>
+            <code>0201060B094449592D73656E736F720B161C182302C4090303BF13</code>
           </li>
           <li>
-            RSSI value (signal strength)
+            RSSI value
             <code>CC</code>
           </li>
         </ul>
         <h3 id="header">Header</h3>
         <p>
           The first part
-          <code>043E2602010000A5808FE648541A</code>
-          is the header of the message. The format is defined by the Bluetooth SIG
-          organisation <a href="https://www.bluetooth.com/specifications/" target="_blank"
-            >the official documentation</a> and contains, amongst others
+          <code>043E2702010000A5808FE648541B</code>
+          is the header of the message and contains, amongst others
         </p>
         <ul>
           <li>
-            the length of the message in the third byte (<code>0x26</code>
-            in hex is 38 in decimals, meaning 38 bytes after the third byte = 41
+            the length of the message in the 3rd byte (<code>0x27</code>
+            in hex is 39 in decimals, meaning 39 bytes after the third byte = 42
             bytes in total)
           </li>
           <li>
@@ -235,14 +234,14 @@
             <code>54:48:E6:8F:80:A5</code>)
           </li>
           <li>
-            the length of the advertising payload in byte 14 (<code>0x1A</code>
-            = 26)
+            the length of the advertising payload in byte 14 (<code>0x1B</code>
+            = 27)
           </li>
         </ul>
         <h3 id="advertising-payload">Advertising payload</h3>
         <p>
           The second part
-          <code>020106 0B094449592D73656E736F72 0A16FCD24002C40903BF13</code>
+          <code>020106 0B094449592D73656E736F72 0B161C182302C4090303BF13</code>
           contains the advertising payload, and can consist of one or more
           <strong>Advertising Data (AD) elements</strong>. Each element contains
           the following:
@@ -252,58 +251,45 @@
             1st byte: length of the element (excluding the length byte itself)
           </li>
           <li>
-            2nd byte: AD type – specifies what
-            <a href="https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/Assigned%20Number%20Types/Generic%20Access%20Profile.pdf" target="_blank"
-            >data type</a> is included in the element
+            2nd byte: AD type – specifies what data is included in the element
           </li>
           <li>
             AD data – one or more bytes - the meaning is defined by the AD type
           </li>
         </ul>
         <p>
-          The advertising payload in BTHome format should at least contain the
-          AD elements <strong>Flags</strong> and <strong>Service Data (16 bits
-          UUID)</strong>. Optionally, you can add a <strong>Local Name</strong>.
+          The advertising payload should contain the following three AD
+          elements:
         </p>
-        <strong>Flags (<code>0x01</code>)</strong><br />
-        <p>
-          The flag value has several bits indicating the capabilities of the device.
-          This part is always the same for BTHome (<code>0x020106</code>).
-        </p>
-          Flags data: <code>020106</code>
         <ul>
-          <li><code>0x02</code> = length (2 bytes)</li>
-          <li><code>0x01</code> = Flags</li>
+          <li>Flags (<code>0x01</code>)</li>
           <li>
-            <code>0x06</code> = in bits, this is <code>00000110</code>.<br />
-            bit 1 and bit 2 are 1, meaning: <br />
-            bit 1: “LE General Discoverable Mode” <br />
-            bit 2: “BR/EDR Not Supported”
+            Shortened local name (<code>0x08</code>) or Complete local name
+            (<code>0x09</code>)
           </li>
+          <li>UUID16 (<code>0x16</code>)</li>
         </ul>
-        <strong>Service data (16-bit UUID) (<code>0x16</code>)</strong><br />
-        <p>The service data contains the actual data. In the example, we have:</p>
+        <p>In the example, we have:</p>
         <ul>
           <li>
-            Service data (16-bit UUID):
-            <code>0A 16 FCD24002C40903BF13</code>
-            (BTHome data)
+            First AD element:
+            <code>020106</code>
             <ul>
-              <li><code>0x0A</code> = length (10 bytes)</li>
-              <li><code>0x16</code> = Service Data - 16-bit UUID</li>
-              <li><code>0xFCD24002C40903BF13</code> = BTHome data (see below)</li>
+              <li><code>0x02</code> = length (2 bytes)</li>
+              <li><code>0x01</code> = Flags</li>
+              <li>
+                <code>0x06</code> = in bits, this is <code>00000110</code>. Bit
+                1 and bit 2 are 1, meaning: Bit 1: “LE General Discoverable
+                Mode” Bit 2: “BR/EDR Not Supported”
+              </li>
+              <li>
+                This part always has to be added, and is always the same
+                (<code>0x020106</code>)
+              </li>
             </ul>
           </li>
-        </ul>
-        <strong>Local Name (<code>0x08</code> or <code>0x09</code>)</strong><br />
-        <p>
-          Optional AD element is the local name,
-          either the Shortened local name (<code>0x08</code>)
-          or Complete local name (<code>0x09</code>).
-        </p>
-        <ul>
           <li>
-            Example of Complete local name:
+            Second AD element:
             <code>0B094449592D73656E736F72</code>
             <ul>
               <li><code>0x0B</code> = length (11 bytes)</li>
@@ -320,60 +306,140 @@
               </li>
             </ul>
           </li>
+          <li>
+            Third AD element:
+            <code>0B 16 1C182302C4090303BF13</code>
+            (BTHome data)
+            <ul>
+              <li><code>0x0B</code> = length (11 bytes)</li>
+              <li><code>0x16</code> = Service Data - 16-bit UUID</li>
+              <li><code>0x1C182302C4090303BF13</code> = BTHome data</li>
+            </ul>
+          </li>
         </ul>
-        <h3 id="bthome-data-format">BTHome Data format</h3>
+        <h4 id="bthome-data-format">BTHome Data format</h4>
         <p>
-          The BTHome (service) data contains the <strong>16 bit UUID</strong>,
-          the <strong>BTHome Device Information</strong> and one or
-          multiple <strong>Measurements</strong>. <br /><br />In the
-          example we have the following BTHome data:<br />
-          <code>0xFCD2 40 02C409 03BF13</code>
+          The BTHome data can contain multiple measurements. We continue with
+          the example from above.
         </p>
-        <strong>UUID (<code>0xFCD2</code>)</strong><br />
-        <p>
-          This UUID should be used by receivers to recognize BTHome
-          messages.<br /><br />
-          Allterco Robotics, the manufacturer of Shelly devices, has sponsored this UUID
-          for BTHome and it's free to use for everyone with <a href="/images/License_Statement_-_BTHOME.pdf">this license</a>.
-        </p>
-        <strong>BTHome Device Information (<code>0x40</code>)</strong><br />
-        <p>
-          The first byte after the UUID <code>0x40</code> is the BTHome device info byte,
-          which has several bits indicating the capabilities of the device.
-        </p>
-        <ul>
-          <li>bit 0: “Encryption flag”</li>
-          <li>bit 1-4: “Reserved for future use”</li>
-          <li>bit 5-7: “BTHome Version”</li>
-        </ul>
-        <p>
-          In the example, we have <code>0x40</code>.
-          After
-          <a href="https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html">converting</a>
-          this to bits, we get <code>01000000</code>.<br />
-          Note. bit 0 is the most right number, bit 7 is the most left number<br />
-        </p>
-        <ul>
-          <li>bit 0: <code>0</code> = False: No encryption</li>
-          <li>bit 5-7: <code>010</code> = 2: BTHome Version 2.<br />
-            Other version numbers are currently not allowed</li>
-        </ul>
-        <strong>Temperature measurement (<code>0x02 C409</code>)</strong><br />
-        <p>
+        BTHome data =
+        <code>0x1C18 2302C409 0303BF13</code>
         <ul>
           <li>
-          The first measurement is a temperature measurement in the example. The first byte
-            <code>0x02</code> is defining the type of measurement (temperature, see table below)
+            <code>0x1C18</code>
+            = The first two byte are the UUID16. Use <code>0x1C18</code> for
+            non-encrypted messages and <code>0x1E18</code> for encrypted data.
+            This data should be used by receivers to recognize BTHome
+            messages.<br /><br />More information about encryption can be found
+            <a href="#encryption">further down this page</a>.
+          </li>
+          <li>
+            <code>0x23 02 C409</code>
+            = Temperature packet
+          </li>
+          <li>
+            <code>0x03 03 BF13</code>
+            = Humidity packet
+          </li>
+        </ul>
+        <p>
+          Lets explain how the last two data packets work. The temperature
+          packet is used as example. The first byte
+          <code>0x23</code> (in bits <code>00100 011</code>) is giving
+          information about:
+        </p>
+        <ul>
+          <li>
+            The object length (bit 0-4):
+            <code>00011</code>
+            = 3 bytes (excluding the length byte itself)
+          </li>
+          <li>
+            The object format (bit 5-7)
+            <code>001</code> = 1 = signed integer (see table below)
+          </li>
+        </ul>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Bit 5-7</th>
+                <th>Format</th>
+                <th>Data Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>0</code>
+                </td>
+                <td>
+                  <code>000</code>
+                </td>
+                <td>uint</td>
+                <td>unsigned integer</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>1</code>
+                </td>
+                <td>
+                  <code>001</code>
+                </td>
+                <td>int</td>
+                <td>signed integer</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>2</code>
+                </td>
+                <td>
+                  <code>010</code>
+                </td>
+                <td>float</td>
+                <td>float</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>3</code>
+                </td>
+                <td>
+                  <code>011</code>
+                </td>
+                <td>string</td>
+                <td>string</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>4</code>
+                </td>
+                <td>
+                  <code>100</code>
+                </td>
+                <td>MAC</td>
+                <td>MAC address (reversed)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>
+            The second byte
+            <code>0x02</code> is defining the type of measurement (temperature,
+            see table below)
           </li>
           <li>
             The remaining bytes
-            <code>0xC409</code> comprise the object value (little-endian). This value has to be in the format
-            as given in the table below. The value will be multiplied with a factor, as given in the table below,
-            to get a sufficient number of digits.
+            <code>0xC409</code> comprise the object value (little-endian), which will
+            be multiplied with the factor in the table below to get a sufficient
+            number of digits.
             <ul>
               <li>
-                According to the table, a 2 bytes long unsigned integer is used in little-endian with a factor 0.01,
-                for temperature measurements with object id <code>0x02</code>.
+                The object length is telling us that the value is 2 bytes long
+                (object length = 3 bytes minus the second byte) and the object
+                format is telling us that the value is a signed integer
+                (positive or negative integer).
               </li>
               <li>
                 <code>0xC409</code>
@@ -386,31 +452,11 @@
             </ul>
           </li>
         </ul>
-        <strong>Humidity measurement (<code>0x03 BF13</code>)</strong><br />
-        <p>
-        <ul>
-          <li>
-          The second measurement is a humidity measurement in the example. The first byte
-            <code>0x03</code> is defining the type of measurement (humidity), 2 bytes, as a
-            signed integer (see table below).
-          </li>
-          <li>
-            <code>0xBF13</code> as unsigned integer in little-endian is equal to 5055, multiplied
-            with a factor 0.01, this becomes a humidity of 50.55%.
-          </li>
-        </ul>
-        <p>
-          Object ids have to be applied in numerical order (from low to high) in your advertisement.
-          This will make sure that if you have a device (sensor) that is broadcasting a new measurement type
-          that is added in a new (minor) BTHome update, while your BTHome receiver isn't updated yet to the same
-          version, it will still be able to receive the older supported measurement types. A BTHome receiver will
-          stop parsing object ids as soon as it finds an object id that isn't supported.
-        </p>
-        <h3 id="supported-data">Supported data types</h3>
+        <h3 id="supported-data">Supported data</h3>
         <p>
           <i>
             <a
-              href="https://github.com/Bluetooth-Devices/bthome-ble/blob/V2/tests/test_parser_v2.py"
+              href="https://github.com/custom-components/ble_monitor/blob/master/custom_components/ble_monitor/test/test_bthome.py"
               >Full example payloads for each data type.</a
             >
           </i>
@@ -422,7 +468,7 @@
               <tr>
                 <th>Object id</th>
                 <th>Property</th>
-                <th>Data type</th>
+                <th>Preferred data type</th>
                 <th>Factor</th>
                 <th>Example</th>
                 <th>Result</th>
@@ -438,7 +484,7 @@
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>1</td>
                 <td>
-                  <code>0161</code>
+                  <code>020161</code>
                 </td>
                 <td>97</td>
                 <td>
@@ -447,87 +493,17 @@
               </tr>
               <tr>
                 <td>
-                  <code>0x12</code>
+                  <code>0x02</code>
                 </td>
-                <td>co2</td>
-                <td>uint16 (2&nbsp;bytes)</td>
-                <td>1</td>
-                <td>
-                  <code>12E204</code>
-                </td>
-                <td>1250</td>
-                <td>
-                  <code>ppm</code>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x09</code>
-                </td>
-                <td>count</td>
-                <td>uint (1&nbsp;bytes)</td>
-                <td>1</td>
-                <td>
-                  <code>0960</code>
-                </td>
-                <td>96</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x3D</code>
-                </td>
-                <td>count</td>
-                <td>uint (2&nbsp;bytes)</td>
-                <td>1</td>
-                <td>
-                  <code>3D0960</code>
-                </td>
-                <td>24585</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x3E</code>
-                </td>
-                <td>count</td>
-                <td>uint (4&nbsp;bytes)</td>
-                <td>1</td>
-                <td>
-                  <code>3E2A2C0960</code>
-                </td>
-                <td>1611213866</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x08</code>
-                </td>
-                <td>dewpoint</td>
+                <td>temperature</td>
                 <td>sint16 (2&nbsp;bytes)</td>
                 <td>0.01</td>
                 <td>
-                  <code>08CA06</code>
+                  <code>2302CA09</code>
                 </td>
-                <td>17.38</td>
+                <td>25.06</td>
                 <td>
                   <code>°C</code>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <code>0X0A</code>
-                </td>
-                <td>energy</td>
-                <td>uint24 (3&nbsp;bytes)</td>
-                <td>0.001</td>
-                <td>
-                  <code>0A138A14</code>
-                </td>
-                <td>1346.067</td>
-                <td>
-                  <code>kWh</code>
                 </td>
               </tr>
               <tr>
@@ -538,7 +514,7 @@
                 <td>uint16 (2&nbsp;bytes)</td>
                 <td>0.01</td>
                 <td>
-                  <code>03BF13</code>
+                  <code>0303BF13</code>
                 </td>
                 <td>50.55</td>
                 <td>
@@ -553,11 +529,26 @@
                 <td>uint1 (1&nbsp;byte)</td>
                 <td>1</td>
                 <td>
-                  <code>2E23</code>
+                  <code>022E23</code>
                 </td>
                 <td>35</td>
                 <td>
                   <code>%</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x04</code>
+                </td>
+                <td>pressure</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>0404138A01</code>
+                </td>
+                <td>1008.83</td>
+                <td>
+                  <code>hPa</code>
                 </td>
               </tr>
               <tr>
@@ -568,7 +559,7 @@
                 <td>uint24 (3&nbsp;bytes)</td>
                 <td>0.01</td>
                 <td>
-                  <code>05138A14</code>
+                  <code>0405138A14</code>
                 </td>
                 <td>13460.67</td>
                 <td>
@@ -583,7 +574,7 @@
                 <td>uint16 (2&nbsp;byte)</td>
                 <td>0.01</td>
                 <td>
-                  <code>065E1F</code>
+                  <code>03065E1F</code>
                 </td>
                 <td>80.3</td>
                 <td>
@@ -598,7 +589,7 @@
                 <td>uint16 (2&nbsp;byte)</td>
                 <td>0.01</td>
                 <td>
-                  <code>073E1D</code>
+                  <code>03073E1D</code>
                 </td>
                 <td>74.86</td>
                 <td>
@@ -607,32 +598,75 @@
               </tr>
               <tr>
                 <td>
-                  <code>0x14</code>
+                  <code>0x08</code>
                 </td>
-                <td>moisture</td>
-                <td>uint16 (2&nbsp;bytes)</td>
+                <td>dewpoint</td>
+                <td>sint16 (2&nbsp;bytes)</td>
                 <td>0.01</td>
                 <td>
-                  <code>14020C</code>
+                  <code>2308CA06</code>
                 </td>
-                <td>30.74</td>
+                <td>17.38</td>
                 <td>
-                  <code>%</code>
+                  <code>°C</code>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <code>0x2F</code>
+                  <code>0x09</code>
                 </td>
-                <td>moisture</td>
-                <td>uint8 (1&nbsp;byte)</td>
+                <td>count</td>
+                <td>uint (4&nbsp;bytes)</td>
                 <td>1</td>
                 <td>
-                  <code>2F23</code>
+                  <code>020960</code>
                 </td>
-                <td>35</td>
+                <td>96</td>
+                <td></td>
+              </tr>
+              <tr>
                 <td>
-                  <code>%</code>
+                  <code>0X0A</code>
+                </td>
+                <td>energy</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.001</td>
+                <td>
+                  <code>040A138A14</code>
+                </td>
+                <td>1346.067</td>
+                <td>
+                  <code>kWh</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0B</code>
+                </td>
+                <td>power</td>
+                <td>uint24 (3&nbsp;bytes)</td>
+                <td>0.01</td>
+                <td>
+                  <code>040B021B00</code>
+                </td>
+                <td>69.14</td>
+                <td>
+                  <code>W</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x0C</code>
+                </td>
+                <td>voltage</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>0.001</td>
+                <td>
+                  <code>030C020C</code>
+                </td>
+                <td>3.074</td>
+                <td>
+                  <code>V</code>
                 </td>
               </tr>
               <tr>
@@ -643,7 +677,7 @@
                 <td>uint16 (2&nbsp;bytes)</td>
                 <td>1</td>
                 <td>
-                  <code>0D120C</code>
+                  <code>030D120C</code>
                 </td>
                 <td>3090</td>
                 <td>
@@ -658,7 +692,7 @@
                 <td>uint16 (2&nbsp;bytes)</td>
                 <td>1</td>
                 <td>
-                  <code>0E021C</code>
+                  <code>030E021C</code>
                 </td>
                 <td>7170</td>
                 <td>
@@ -667,47 +701,17 @@
               </tr>
               <tr>
                 <td>
-                  <code>0x0B</code>
+                  <code>0x12</code>
                 </td>
-                <td>power</td>
-                <td>uint24 (3&nbsp;bytes)</td>
-                <td>0.01</td>
+                <td>co2</td>
+                <td>uint16 (2&nbsp;bytes)</td>
+                <td>1</td>
                 <td>
-                  <code>0B021B00</code>
+                  <code>0312E204</code>
                 </td>
-                <td>69.14</td>
+                <td>1250</td>
                 <td>
-                  <code>W</code>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x04</code>
-                </td>
-                <td>pressure</td>
-                <td>uint24 (3&nbsp;bytes)</td>
-                <td>0.01</td>
-                <td>
-                  <code>04138A01</code>
-                </td>
-                <td>1008.83</td>
-                <td>
-                  <code>hPa</code>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x02</code>
-                </td>
-                <td>temperature</td>
-                <td>sint16 (2&nbsp;bytes)</td>
-                <td>0.01</td>
-                <td>
-                  <code>02CA09</code>
-                </td>
-                <td>25.06</td>
-                <td>
-                  <code>°C</code>
+                  <code>ppm</code>
                 </td>
               </tr>
               <tr>
@@ -718,7 +722,7 @@
                 <td>uint16 (2&nbsp;bytes)</td>
                 <td>1</td>
                 <td>
-                  <code>133301</code>
+                  <code>03133301</code>
                 </td>
                 <td>307</td>
                 <td>
@@ -727,17 +731,32 @@
               </tr>
               <tr>
                 <td>
-                  <code>0x0C</code>
+                  <code>0x14</code>
                 </td>
-                <td>voltage</td>
+                <td>moisture</td>
                 <td>uint16 (2&nbsp;bytes)</td>
-                <td>0.001</td>
+                <td>0.01</td>
                 <td>
-                  <code>0C020C</code>
+                  <code>0314020C</code>
                 </td>
-                <td>3.074</td>
+                <td>30.74</td>
                 <td>
-                  <code>V</code>
+                  <code>%</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x2F</code>
+                </td>
+                <td>moisture</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>1</td>
+                <td>
+                  <code>022F23</code>
+                </td>
+                <td>35</td>
+                <td>
+                  <code>%</code>
                 </td>
               </tr>
             </tbody>
@@ -756,6 +775,7 @@
         <p>
           Binary sensor data should always be an uint8 of a single byte. Its
           value should be <code>1</code> for on, and <code>0</code> for off.
+          Note: Binary sensors will be supported in Home Assistant 2022.10.
         </p>
         <div class="table-wrapper">
           <table>
@@ -771,12 +791,45 @@
             <tbody>
               <tr>
                 <td>
+                  <code>0x0F</code>
+                </td>
+                <td>generic boolean</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>020F01</code>
+                </td>
+                <td>1 (True = On)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x10</code>
+                </td>
+                <td>power</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021001</code>
+                </td>
+                <td>1 (True = On)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>0x11</code>
+                </td>
+                <td>opening</td>
+                <td>uint8 (1&nbsp;byte)</td>
+                <td>
+                  <code>021100</code>
+                </td>
+                <td>0 (False = Closed)</td>
+              </tr>
+              <tr>
+                <td>
                   <code>0x15</code>
                 </td>
                 <td>battery</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1500</code>
+                  <code>021500</code>
                 </td>
                 <td>0 (False = Low)</td>
               </tr>
@@ -787,7 +840,7 @@
                 <td>battery charging</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1601</code>
+                  <code>021601</code>
                 </td>
                 <td>1 (True = Charging)</td>
               </tr>
@@ -798,7 +851,7 @@
                 <td>carbon monoxide</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1700</code>
+                  <code>021700</code>
                 </td>
                 <td>0 (False = Not detected)</td>
               </tr>
@@ -809,7 +862,7 @@
                 <td>cold</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1801</code>
+                  <code>021801</code>
                 </td>
                 <td>1 (True = Cold)</td>
               </tr>
@@ -820,7 +873,7 @@
                 <td>connectivity</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1900</code>
+                  <code>021900</code>
                 </td>
                 <td>0 (False = Disconnected)</td>
               </tr>
@@ -831,7 +884,7 @@
                 <td>door</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1A00</code>
+                  <code>021A00</code>
                 </td>
                 <td>0 (False = Closed)</td>
               </tr>
@@ -842,7 +895,7 @@
                 <td>garage door</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1B01</code>
+                  <code>021B01</code>
                 </td>
                 <td>1 (True = Open)</td>
               </tr>
@@ -853,20 +906,9 @@
                 <td>gas</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1C01</code>
+                  <code>021C01</code>
                 </td>
                 <td>1 (True = Detected)</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x0F</code>
-                </td>
-                <td>generic boolean</td>
-                <td>uint8 (1&nbsp;byte)</td>
-                <td>
-                  <code>0F01</code>
-                </td>
-                <td>1 (True = On)</td>
               </tr>
               <tr>
                 <td>
@@ -875,7 +917,7 @@
                 <td>heat</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1D00</code>
+                  <code>021D00</code>
                 </td>
                 <td>0 (False = Normal)</td>
               </tr>
@@ -886,7 +928,7 @@
                 <td>light</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1E01</code>
+                  <code>021E01</code>
                 </td>
                 <td>1 (True = Light detected)</td>
               </tr>
@@ -897,7 +939,7 @@
                 <td>lock</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>1F01</code>
+                  <code>021F01</code>
                 </td>
                 <td>1 (True = Unlocked)</td>
               </tr>
@@ -908,7 +950,7 @@
                 <td>moisture</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2001</code>
+                  <code>022001</code>
                 </td>
                 <td>1 (True = Wet)</td>
               </tr>
@@ -919,7 +961,7 @@
                 <td>motion</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2100</code>
+                  <code>022100</code>
                 </td>
                 <td>0 (False = Clear)</td>
               </tr>
@@ -930,7 +972,7 @@
                 <td>moving</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2201</code>
+                  <code>022201</code>
                 </td>
                 <td>1 (True = Moving)</td>
               </tr>
@@ -941,20 +983,9 @@
                 <td>occupancy</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2301</code>
+                  <code>022301</code>
                 </td>
                 <td>1 (True = Detected)</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x11</code>
-                </td>
-                <td>opening</td>
-                <td>uint8 (1&nbsp;byte)</td>
-                <td>
-                  <code>1100</code>
-                </td>
-                <td>0 (False = Closed)</td>
               </tr>
               <tr>
                 <td>
@@ -963,20 +994,9 @@
                 <td>plug</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2400</code>
+                  <code>022400</code>
                 </td>
                 <td>0 (False = Unplugged)</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>0x10</code>
-                </td>
-                <td>power</td>
-                <td>uint8 (1&nbsp;byte)</td>
-                <td>
-                  <code>1001</code>
-                </td>
-                <td>1 (True = On)</td>
               </tr>
               <tr>
                 <td>
@@ -985,7 +1005,7 @@
                 <td>presence</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2500</code>
+                  <code>022500</code>
                 </td>
                 <td>0 (False = Away)</td>
               </tr>
@@ -996,7 +1016,7 @@
                 <td>problem</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2601</code>
+                  <code>022601</code>
                 </td>
                 <td>1 (True = Problem)</td>
               </tr>
@@ -1007,7 +1027,7 @@
                 <td>running</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2701</code>
+                  <code>022701</code>
                 </td>
                 <td>1 (True = Running)</td>
               </tr>
@@ -1018,7 +1038,7 @@
                 <td>safety</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2800</code>
+                  <code>022800</code>
                 </td>
                 <td>0 (False = Unsafe)</td>
               </tr>
@@ -1029,7 +1049,7 @@
                 <td>smoke</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2901</code>
+                  <code>022901</code>
                 </td>
                 <td>1 (True = Detected)</td>
               </tr>
@@ -1040,7 +1060,7 @@
                 <td>sound</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2A00</code>
+                  <code>022A00</code>
                 </td>
                 <td>0 (False = Clear)</td>
               </tr>
@@ -1051,7 +1071,7 @@
                 <td>tamper</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2B00</code>
+                  <code>022B00</code>
                 </td>
                 <td>0 (False = Off)</td>
               </tr>
@@ -1062,7 +1082,7 @@
                 <td>vibration</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2C01</code>
+                  <code>022C01</code>
                 </td>
                 <td>1 (True = Detected)</td>
               </tr>
@@ -1073,7 +1093,7 @@
                 <td>window</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>2D01</code>
+                  <code>022D01</code>
                 </td>
                 <td>1 (True = Closed)</td>
               </tr>
@@ -1112,7 +1132,7 @@
                 <td>None</td>
                 <td></td>
                 <td>
-                  <code>3A00</code>
+                  <code>023A00</code>
                 </td>
                 <td></td>
               </tr>
@@ -1127,7 +1147,7 @@
                 <td>press</td>
                 <td></td>
                 <td>
-                  <code>3A01</code>
+                  <code>023A01</code>
                 </td>
                 <td>press</td>
               </tr>
@@ -1142,7 +1162,7 @@
                 <td>double_press</td>
                 <td></td>
                 <td>
-                  <code>3A02</code>
+                  <code>023A02</code>
                 </td>
                 <td>double_press</td>
               </tr>
@@ -1157,7 +1177,7 @@
                 <td>triple_press</td>
                 <td></td>
                 <td>
-                  <code>3A03</code>
+                  <code>023A03</code>
                 </td>
                 <td>triple_press</td>
               </tr>
@@ -1172,7 +1192,7 @@
                 <td>long_press</td>
                 <td></td>
                 <td>
-                  <code>3A04</code>
+                  <code>023A04</code>
                 </td>
                 <td>long_press</td>
               </tr>
@@ -1187,7 +1207,7 @@
                 <td>long_double_press</td>
                 <td></td>
                 <td>
-                  <code>3A05</code>
+                  <code>023A05</code>
                 </td>
                 <td>long_double_press</td>
               </tr>
@@ -1202,7 +1222,7 @@
                 <td>long_triple_press</td>
                 <td></td>
                 <td>
-                  <code>3A06</code>
+                  <code>023A06</code>
                 </td>
                 <td>long_triple_press</td>
               </tr>
@@ -1217,7 +1237,7 @@
                 <td>None</td>
                 <td></td>
                 <td>
-                  <code>3C00</code>
+                  <code>023C00</code>
                 </td>
                 <td></td>
               </tr>
@@ -1232,7 +1252,7 @@
                 <td>rotate left</td>
                 <td># steps</td>
                 <td>
-                  <code>3C0103</code>
+                  <code>033C0103</code>
                 </td>
                 <td>rotate left 3 steps</td>
               </tr>
@@ -1247,7 +1267,7 @@
                 <td>rotate right</td>
                 <td># steps</td>
                 <td>
-                  <code>3C020A</code>
+                  <code>033C020A</code>
                 </td>
                 <td>rotate right 10 steps</td>
               </tr>
@@ -1260,7 +1280,7 @@
           same type, by just adding them behind each other. The event `0x00` (None) is a special
           event that can be used in case you e.g. have a device with two buttons,
           and you only want to send an event for the 2nd button.
-          An event <code>3A003A01</code> will send no event for the first button, and an event "press" for
+          An event <code>023A00203A01</code> will send no event for the first button, and an event "press" for
           the second button.
         </p>
         <h4 id="misc-data">Misc data</h4>
@@ -1274,9 +1294,9 @@
           <code>packet id</code> is different compared to the previous one. The
           <code>packet id</code> is a value between 0 (<code>0x00</code>) and
           255 (<code>0xFF</code>), and should be increased on every change in
-          data. Note that most home automation software already have some other
-          filtering for unchanged data. The use of a <code>packet id</code> is
-          therefore often not needed.
+          data. Note that the <code>packet id</code> is not used in the Home
+          Assistant integration, as Home Assistant has its own deduplication
+          mechanism.
         </p>
         <div class="table-wrapper">
           <table>
@@ -1297,7 +1317,7 @@
                 <td>packet id</td>
                 <td>uint8 (1&nbsp;byte)</td>
                 <td>
-                  <code>0009</code>
+                  <code>020009</code>
                 </td>
                 <td>9</td>
               </tr>
@@ -1313,52 +1333,29 @@
           long key (32 characters).
         </p>
         <p>
-          More detailed information about encryption in BTHome is given on
+          More information on how to encrypt your messages is demonstrated in
           <a
-            href="https://bthome.io/encryption.html"
-            >this page</a
+            href="https://github.com/Bluetooth-Devices/bthome-ble/blob/main/src/bthome_ble/bthome_v1_encryption.py"
+            >this script</a
           >.
         </p>
-
         <h3 id="scope-constraints">Scope & Constraints</h3>
         <p>
           The goal of the BTHome standard is to share sensor data efficiently
           via Bluetooth LE discovery packets. It is not the goal to offer a way
           for devices to share control.
         </p>
-        <h3 id="sponsors">Sponsors</h3>
-        <p>
-          The BTHome 16 bit UUID has been sponsored by <strong>Allterco</strong>, who purchased the UUID
-          for us at the Bluetooth SIG organisation. Allterco is more familiar to most of you as Shelly.
-          Alltreco has made a license available for everyone to use the format for free, as long as
-          you follow the (V2) format that is defined on this website. If you want to develop
-          devices with BTHome, and you want to asure that it is really free, you can <a
-            href="/images/License_Statement_-_BTHOME.pdf"
-            >download the license.</a
-          >
-        </p>
       </div>
 
       <div class="footer">
         <div>
-          <a href="https://bthome.io/">BTHome</a>
-          &nbsp; – &nbsp;
-          <a href="https://github.com/Bluetooth-Devices/bthome-ble/issues/">GitHub</a>
-          &nbsp; – &nbsp;
-          <a href="https://bthome.io/encryption.html">Encryption</a>
+          BTHome &nbsp; – &nbsp;
+          <a href="https://github.com/home-assistant/bthome.io/">GitHub</a>
         </div>
         <div class="initiative">
           BTHome is created by
           <a href="https://github.com/ernst79">Ernst Klamer</a> with the help of
           <a href="https://github.com/pvvx">Victor</a>.
-        </div>
-        <div class="initiative">
-          BTHome is sponsored by
-          <a href="https://shelly.cloud/">Shelly</a>
-        </div>
-        <div class="initiative">
-        Information about the BTHome V1 format can be found
-          <a href="https://www.bthome.io/bthome_v1.html">here</a>.
         </div>
       </div>
     </div>
