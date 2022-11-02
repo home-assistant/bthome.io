@@ -1,0 +1,153 @@
+---
+layout: base
+description: Free and open standard for broadcasting sensor data and button presses over Bluetooth LE.
+projects:
+  - name: Home Assistant
+    logo: home-assistant.png
+    website: https://www.home-assistant.io
+    description: >
+      <p>
+        Open source home automation with a focus on local control and privacy.
+        Automatically discovers BTHome devices and allows users to add them to
+        their home with a single click.
+      </p>
+  - name: ATC MiThermometer
+    logo: atc-mithermometer.png
+    website: https://github.com/pvvx/ATC_MiThermometer#readme
+    description: >
+      <p>
+        Custom firmware for several Bluetooth thermometer & hygrometer devices
+        that can broadcast temperature and humidity via BTHome.
+      </p>
+      <p>
+        Use their
+        <a
+          href="https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html"
+          target="_blank"
+          >TelinkMiFlasher.html</a
+        >
+        tool to upgrade your device directly from your browser. Once installed,
+        change the advertising type to "BTHome" and click "Send Config".
+      </p>
+  - name: b-parasite
+    logo: b-parasite.png
+    website: https://github.com/rbaron/b-parasite
+    description: >
+      <p>
+        b-parasite is an open source soil moisture and ambient
+        temperature/humidity/light sensor that supports BTHome.
+      </p>
+  - name: ESP32_BTHome
+    website: https://github.com/TheDigital1/ESP32_BTHome
+    description: >
+      <p>
+        ESP32_BTHome is an example of using an ESP32 to send BLE advertisement
+        packets in the BTHome format in such way that you have a very lightweight,
+        energy efficient sensor. Between the broadcasting of BLE advertisements,
+        the ESP32 will in a sleeping state, making it more suitable for battery
+        powered sensors.
+      </p>
+  - name: bthome-weather-station
+    website: https://github.com/stumpylog/bthome-weather-station
+    description: >
+      <p>
+        bthome-weather-station is an example of using the Espressif IoT
+        Development Framework (ESP-IDF) to read sensor data and send BLE
+        advertisement packets in the BTHome format. It includes reading data,
+        encoding to BTHome format, deep sleep and utilization of multiple cores
+        for speed. The aim is to be easily extensible for adding your own sensors
+        using I2C.
+      </p>
+---
+
+<h2>
+  BTHome is an open standard for broadcasting sensor data and button presses
+  over Bluetooth LE
+</h2>
+
+<p>
+  BTHome is an energy efficient but flexible BLE format for devices to broadcast
+  their sensor data and button presses. Devices can run over a year on a single
+  battery. It allows data encryption and is supported by popular home automation
+  platforms, like
+  <a href="https://www.home-assistant.io">Home&nbsp;Assistant</a>, out of the
+  box.
+</p>
+
+<ul>
+  <li>
+    <a href="/format/">Data format</a>
+  </li>
+  <li>
+    <a href="/encryption/">Encryption</a>
+  </li>
+  <li>
+    <a href="/v1/">v1 data format (deprecated as of Nov '22)</a>
+  </li>
+</ul>
+
+<img
+  src="/images/overview.png"
+  alt="Picture showing a Bluetooth temperature sensor broadcasting it's data to Home Assistant, showing it formatted to the user."
+/>
+
+<p>
+  <i>
+    BTHome is part of the Open Home and aims to create smart homes that offer
+    privacy, choice and durability.
+    <a href="https://www.open-home.io/">Learn more about the Open Home.</a>
+  </i>
+</p>
+
+<h3>Projects using BTHome</h3>
+
+{% for project in projects %}
+<div class="project">
+  <div class="logo">
+    <img src="/images/{{ project.logo | default: "esp32.png" }}" alt="{{
+    project.name }} logo" />
+  </div>
+  <div class="info">
+    <h3>{{ project.name }}</h3>
+    {{ project.description }}
+    <p>
+      <a href="{{ project.website }}" target="_blank">Website</a>
+    </p>
+  </div>
+</div>
+
+{% endfor %}
+
+<h3 id="problem-solving">The problem we're solving</h3>
+
+<p>
+  Most Bluetooth devices are designed to be used with a smartphone app. They
+  broadcast their data in a proprietary format that is not standardized. To be
+  able to use these devices in your smart home, your home automation platform
+  needs to support each proprietary format. This makes it difficult to use
+  devices from different manufacturers in the same system.
+</p>
+
+<p>
+  BTHome is an open standard that allows devices to broadcast their sensor data
+  and button presses in a standardized format. Home automation systems now need
+  to only adopt a single standard and BTHome devices will work out of the box.
+</p>
+
+<h3 id="scope-constraints">Scope & Constraints</h3>
+<p>
+  The goal of the BTHome standard is to share sensor data and button presses
+  efficiently via Bluetooth LE discovery packets. It is not the goal to offer a
+  way for devices to share control.
+</p>
+
+<h3 id="sponsors">Sponsors</h3>
+<p>
+  The BTHome 16 bit UUID has been sponsored by <strong>Allterco</strong>, who
+  purchased the UUID for us at the Bluetooth SIG organisation. Allterco is more
+  familiar to most of you as Shelly. Alltreco has made a license available for
+  everyone to use the format for free, as long as you follow the (V2) format
+  that is defined on this website. If you want to develop devices with BTHome,
+  and you want to asure that it is really free, you can
+  <a href="/images/License_Statement_-_BTHOME.pdf">download the license.</a>
+</p>

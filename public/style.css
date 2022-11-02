@@ -19,10 +19,30 @@ h3 {
 }
 .header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
 }
 .header img {
   height: 48px;
+}
+.header ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+.header ul li {
+  list-style: none;
+}
+.header li a {
+  display: inline-block;
+  padding: 4px;
+  margin: 0 4px;
+  color: black;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.header a.active {
+  border-bottom-color: #03a9f4;
 }
 .content li {
   padding: 4px 0;
