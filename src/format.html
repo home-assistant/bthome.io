@@ -93,14 +93,18 @@ description: API Reference for BTHome
   <li>AD data – one or more bytes - the meaning is defined by the AD type</li>
 </ul>
 <p>
-  The advertising payload in BTHome format should at least contain the AD
-  elements <strong>Flags</strong> and
-  <strong>Service Data (16 bits UUID)</strong>. Optionally, you can add a
-  <strong>Local Name</strong>.
+  The advertising payload in BTHome format should at least contain the
+  AD element <strong>Service Data (16 bits UUID)</strong>. It is also
+  strongly advised to include the AD element <strong>Flags</strong>.
+  Optionally, you can add a <strong>Local Name</strong>.
 </p>
 <strong>Flags (<code>0x01</code>)</strong><br />
 <p>
   The flag value has several bits indicating the capabilities of the device.
+  Although not required, it is still strongly advised to include this element in your
+  advertisement, especially when using passive scanning on the receiving side.
+  Bluez, which e.g. is used in the Home Assistant Bluetooth integration,
+  won't be able to parse the data without this flags value.
   This part is always the same for BTHome (<code>0x020106</code>).
 </p>
 Flags data: <code>020106</code>
