@@ -23,7 +23,7 @@ description: Encryption schema of BTHome explained.
   We will demonstrate the encryption process with an example. Let's say you want
   to encrypt a temperature and humidity measurement, which are, in non-encrypted
   BTHome format
-  <code style="word-break: break-word"> 02C409 03BF13 </code>
+  <code style="word-break: break-word"> 02CA09 03BF13 </code>
 </p>
 <h3 id="input">The input</h3>
 <p>
@@ -40,9 +40,9 @@ description: Encryption schema of BTHome explained.
     </ul>
     In bits, this becomes <code>01000001</code>. After converting this to a
     byte, we get
-    <code>0x42</code>
+    <code>0x41</code>
   </li>
-  <li>UUID: <code>d2fc</code> (reversed)</li>
+  <li>UUID: <code>0xFCD2</code>, reversed per byte we get <code>D2FC</code>)</li>
 </ul>
 <p>
   We also need an <strong>Encryption Key</strong>, which can be used to decode
@@ -65,7 +65,7 @@ description: Encryption schema of BTHome explained.
 </p>
 <ul>
   <li>MAC address <code>5448E68F80A5</code></li>
-  <li>UUID <code>d2fc</code></li>
+  <li>UUID <code>D2FC</code></li>
   <li>BTHome device data byte <code>41</code></li>
   <li>Counter <code>00112233</code></li>
 </ul>
@@ -77,32 +77,35 @@ description: Encryption schema of BTHome explained.
 <code>
   from Cryptodome.Cipher import AES<br /><br />
   cipher = AES.new(key, AES.MODE_CCM, nonce=nonce, mac_len=4)<br />
-  cipher.update(b"\x11")<br />
   ciphertext, mic = cipher.encrypt_and_digest(data)
 </code>
 <p>
   This will return the <strong>Ciphertext</strong> (the encrypted data) and a 4
   byte <strong>Message Integrity Check (MIC)</strong>, which has to be appended
-  to your BLE advertisement.
+  to your BLE advertisement.<br /><br />
+  Note that in BTHome V1 <code> cipher.update(b"\x11") </code> is used to add a header,
+  to have the same encryption format as Xiaomi sensors. In BTHome V2, this header
+  is not used anymore, make sure you remove this from your sensor firmware code
+  when upgrading to BTHome V2.
 </p>
 <p>
   The final encrypted Service Data, which you can broadcast in your (encrypted)
   BLE advertisement, is composed as follows.
 </p>
 <ul>
-  <li>UUID <code>d2fc</code></li>
-  <li>BTHome device data byte <code>42</code></li>
-  <li>Ciphertext <code>696c8c91856f</code></li>
+  <li>UUID (reversed per byte)<code>D2FC</code></li>
+  <li>BTHome device data byte <code>41</code></li>
+  <li>Ciphertext <code>a47266c95f73</code></li>
   <li>Counter <code>00112233</code></li>
-  <li>Message Integrity Check (MIC) <code>045bbc2a</code></li>
+  <li>Message Integrity Check (MIC) <code>78237214</code></li>
 </ul>
-<p>Service Data = <code>d2fc41696c8c91856f00112233045bbc2a</code></p>
+<p>Service Data = <code>d2fc41a47266c95f730011223378237214</code></p>
 
 <h3 id="decryption">Decrypting your messages</h3>
 <p>
   So, now we have encrypted our first message. But how to decrypt it? Let's
   assume you received the above service data
-  <code>d2fc41696c8c91856f00112233045bbc2a</code>. Your sensor device will also
+  <code>d2fc41a47266c95f730011223378237214</code>. Your sensor device will also
   broadcast its MAC address in the header. The only thing you need is the
   encryption key, which you should have written down when you encrypted the
   message.
@@ -113,7 +116,7 @@ description: Encryption schema of BTHome explained.
   <li>BTHome device data: 3rd byte, should be <code>41</code></li>
   <li>
     Ciphertext: 4th byte from the start till 8th byte from the end:
-    <code>696c8c91856f</code>
+    <code>a47266c95f73</code>
   </li>
   <li>
     Counter: 8th byte from the end till 4th byte from the end:
@@ -122,17 +125,17 @@ description: Encryption schema of BTHome explained.
   <li>
     Message Integrity Check (MIC): 8th byte from the end till 4th byte from the
     end:
-    <code>045bbc2a</code>
+    <code>78237214</code>
   </li>
 </ul>
 <p>With this information, we can recreate the <strong>nonce</strong> again.</p>
 <ul>
   <li>MAC address <code>5448E68F80A5</code></li>
   <li>UUID <code>d2fc</code></li>
-  <li>BTHome device data byte <code>42</code></li>
+  <li>BTHome device data byte <code>41</code></li>
   <li>Counter <code>00112233</code></li>
 </ul>
-<p>nonce = <code>5448e68f80a5d2fc4200112233</code></p>
+<p>nonce = <code>5448e68f80a5d2fc4100112233</code></p>
 <p>
   With the Nonce, the MIC and the encryption key, we can decode the data with
   the following commands.
@@ -140,7 +143,6 @@ description: Encryption schema of BTHome explained.
 <code>
   from Cryptodome.Cipher import AES<br /><br />
   cipher = AES.new(key, AES.MODE_CCM, nonce=nonce, mac_len=4)<br />
-  cipher.update(b"\x11")<br />
   decrypted_data = cipher.decrypt_and_verify(ciphertext, mic)<br />
 </code>
 <p>
