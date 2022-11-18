@@ -23,7 +23,7 @@ description: API Reference for BTHome
 </p>
 <code style="word-break: break-word">
   043E2602010000A5808FE648541A
-  0201060B094449592D73656E736F720A16FCD24002C40903BF13 CC
+  0201060B094449592D73656E736F720A16D2FC4002C40903BF13 CC
 </code>
 <p>
   This message is split up in three parts, the <strong>header</strong>, the
@@ -37,7 +37,7 @@ description: API Reference for BTHome
   </li>
   <li style="word-break: break-word">
     Advertising payload
-    <code>0201060B094449592D73656E736F720A16FCD24002C40903BF13</code>
+    <code>0201060B094449592D73656E736F720A16D2FC4002C40903BF13</code>
   </li>
   <li>
     RSSI value (signal strength)
@@ -74,7 +74,7 @@ description: API Reference for BTHome
 <h3 id="advertising-payload">Advertising payload</h3>
 <p>
   The second part
-  <code>020106 0B094449592D73656E736F72 0A16FCD24002C40903BF13</code>
+  <code>020106 0B094449592D73656E736F72 0A16D2FC4002C40903BF13</code>
   contains the advertising payload, and can consist of one or more
   <strong>Advertising Data (AD) elements</strong>. Each element contains the
   following:
@@ -123,12 +123,12 @@ Flags data: <code>020106</code>
 <ul>
   <li>
     Service data (16-bit UUID):
-    <code>0A 16 FCD24002C40903BF13</code>
+    <code>0A 16 D2FC4002C40903BF13</code>
     (BTHome data)
     <ul>
       <li><code>0x0A</code> = length (10 bytes)</li>
       <li><code>0x16</code> = Service Data - 16-bit UUID</li>
-      <li><code>0xFCD24002C40903BF13</code> = BTHome data (see below)</li>
+      <li><code>0xD2FC4002C40903BF13</code> = BTHome data (see below)</li>
     </ul>
   </li>
 </ul>
@@ -163,10 +163,11 @@ Flags data: <code>020106</code>
   <strong>BTHome Device Information</strong> and one or multiple
   <strong>Measurements</strong>. <br /><br />In the example we have the
   following BTHome data:<br />
-  <code>0xFCD2 40 02C409 03BF13</code>
+  <code>0xD2FC 40 02C409 03BF13</code>
 </p>
-<strong>UUID (<code>0xFCD2</code>)</strong><br />
+<strong>UUID (<code>D2FC</code>)</strong><br />
 <p>
+  The UUID has to be read reversed per byte, so the UUID is <code>0xFCD2</code>.
   This UUID should be used by receivers to recognize BTHome messages.<br /><br />
   Allterco Robotics, the manufacturer of Shelly devices, has sponsored this UUID
   for BTHome and it's free to use for everyone with
