@@ -13,69 +13,30 @@ description: API Reference for BTHome
 </p>
 
 <p>
-  We assume that you understand the basics of BLE advertisements (if not,
+  The BTHome v2 format can best be explained with an example. First, the basics:<br />
+  Bluetooth defines a single packet format for both advertising and data transmissions.
+  This packet consist of four components: preamble (1 octet), access address (4 octets),
+  Protocol Data Unit – PDU (2-257 octets), and Cyclic Redundancy Check – CRC (3 octets).
+  If you want to learn more about the BLE format, you can
   <a
     href="https://www.bluetooth.com/blog/bluetooth-low-energy-it-starts-with-advertising/"
     target="_blank"
     >read this</a
-  >). The BTHome v2 format can best be explained with an example. A BLE
-  advertisement is a long message with bytes (bytestring).
+  >).
 </p>
-<code style="word-break: break-word">
-  043E2602010000A5808FE648541A
-  0201060B094449592D73656E736F720A16D2FC4002C40903BF13 CC
-</code>
-<p>
-  This message is split up in three parts, the <strong>header</strong>, the
-  <strong>advertising payload</strong> and an
-  <strong>RSSI value</strong>
-</p>
-<ul>
-  <li>
-    Header:
-    <code>043E2602010000A5808FE648541A</code>
-  </li>
-  <li style="word-break: break-word">
-    Advertising payload
-    <code>0201060B094449592D73656E736F720A16D2FC4002C40903BF13</code>
-  </li>
-  <li>
-    RSSI value (signal strength)
-    <code>CC</code>
-  </li>
-</ul>
-<h3 id="header">Header</h3>
-<p>
-  The first part
-  <code>043E2602010000A5808FE648541A</code>
-  is the header of the message. The format is defined by the Bluetooth SIG
-  organisation
-  <a href="https://www.bluetooth.com/specifications/" target="_blank"
-    >the official documentation</a
-  >
-  and contains, amongst others
-</p>
-<ul>
-  <li>
-    the length of the message in the third byte (<code>0x26</code>
-    in hex is 38 in decimals, meaning 38 bytes after the third byte = 41 bytes
-    in total)
-  </li>
-  <li>
-    the MAC address in reversed order in byte 8-13 (<code>A5808FE64854</code>,
-    in reversed order, this corresponds to a MAC address
-    <code>54:48:E6:8F:80:A5</code>)
-  </li>
-  <li>
-    the length of the advertising payload in byte 14 (<code>0x1A</code>
-    = 26)
-  </li>
-</ul>
+  <img src="/images/PDU_payload.png" alt="BLE packet" />
+
 <h3 id="advertising-payload">Advertising payload</h3>
 <p>
-  The second part
-  <code>020106 0B094449592D73656E736F72 0A16D2FC4002C40903BF13</code>
-  contains the advertising payload, and can consist of one or more
+  The actual data is being sent as part of the PDU, as the Payload, as indicated in green.
+  The advertising payload is a long message with bytes (bytestring).
+  An example of a BTHome payload is:
+  <code style="word-break: break-word">
+    020106 0B094449592D73656E736F72 0A16D2FC4002C40903BF13
+  </code>
+</p>
+<p>
+  The advertising payload can consist of one or more
   <strong>Advertising Data (AD) elements</strong>. Each element contains the
   following:
 </p>
