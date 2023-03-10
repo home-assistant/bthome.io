@@ -176,13 +176,13 @@ Flags data: <code>020106</code>
     number of digits.
     <ul>
       <li>
-        According to the table, a 2 bytes long unsigned integer is used in
+        According to the table, a 2 bytes long signed integer is used in
         little-endian with a factor 0.01, for temperature measurements with
         object id <code>0x02</code>.
       </li>
       <li>
         <code>0xC409</code>
-        as unsigned integer in little-endian is equal to 2500.
+        as signed integer in little-endian is equal to 2500.
       </li>
       <li>
         The factor for a temperature measurement is 0.01, resulting in a
@@ -198,7 +198,7 @@ Flags data: <code>020106</code>
     The second measurement is a humidity measurement in the example. The first
     byte
     <code>0x03</code> is defining the type of measurement (humidity), 2 bytes,
-    as a signed integer (see table below).
+    as a unsigned integer (see table below).
   </li>
   <li>
     <code>0xBF13</code> as unsigned integer in little-endian is equal to 5055,
@@ -705,7 +705,7 @@ Flags data: <code>020106</code>
         <td>uint16 (2&nbsp;bytes)</td>
         <td>0.1</td>
         <td>
-          <code>0C4A0C</code>
+          <code>4A020C</code>
         </td>
         <td>307.4</td>
         <td>
@@ -720,7 +720,7 @@ Flags data: <code>020106</code>
         <td>uint32 (4&nbsp;bytes)</td>
         <td>0.001</td>
         <td>
-          <code>4e87562a01</code>
+          <code>4E87562A01</code>
         </td>
         <td>19551.879</td>
         <td>
