@@ -140,10 +140,28 @@ Flags data: <code>020106</code>
   byte, which has several bits indicating the capabilities of the device.
 </p>
 <ul>
-  <li>bit 0: “Encryption flag”</li>
-  <li>bit 1-4: “Reserved for future use”</li>
-  <li>bit 5-7: “BTHome Version”</li>
+  <li>bit 0: <b>“Encryption flag”</b></li>
+  <ul>
+    The Encryption flag is telling the receiver wether the device is sending 
+    non-encrypted data (bit 0 = <code>0</code>) or encrypted data (bit 0 = <code>1</code>).
+  </ul>
+  <li>bit 1: “Reserved for future use”</li>
+  <li>bit 2: <b>“Trigger based device flag”</b></li>
+  <ul>
+    <li>The trigger based device flag is telling the receiver that it should expect 
+    that the device is sending BLE advertisements at a regular interval (bit 2 = <code>0</code>) or 
+    at an irregular interval (bit 2 = <code>1</code>), e.g. only when someone pushes a button. This can 
+    be usefull information for a receiver, e.g. to prevent the device from going 
+    to unavailable.</li>
+  </ul>
+  <li>bit 3-4: “Reserved for future use”</li>
+  <li>bit 5-7: <b>“BTHome Version”</b></li>
+  <ul>
+    <li>This represents the BTHome verion. Currently only BTHome version 1 or 2 
+      are allowed, where 2 is the latest version (bit 5-7 = <code>010</code>).</li>
+    </ul>
 </ul>
+
 <p>
   In the example, we have <code>0x40</code>. After
   <a href="https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html"
@@ -154,9 +172,9 @@ Flags data: <code>020106</code>
 </p>
 <ul>
   <li>bit 0: <code>0</code> = False: No encryption</li>
+  <li>bit 2: <code>0</code> = False: Device is sending regular data updates</li>
   <li>
-    bit 5-7: <code>010</code> = 2: BTHome Version 2.<br />
-    Other version numbers are currently not allowed
+    bit 5-7: <code>010</code> = 2: BTHome Version 2.
   </li>
 </ul>
 <strong>Temperature measurement (<code>0x02 C409</code>)</strong><br />
