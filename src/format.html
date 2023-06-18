@@ -258,6 +258,21 @@ Flags data: <code>020106</code>
     <tbody>
       <tr>
         <td>
+          <code>0x51</code>
+        </td>
+        <td>acceleration</td>
+        <td>uint16 (2&nbsp;bytes)</td>
+        <td>0.001</td>
+        <td>
+          <code>518756</code>
+        </td>
+        <td>22.151</td>
+        <td>
+          <code>m/s²</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x01</code>
         </td>
         <td>battery</td>
@@ -458,6 +473,21 @@ Flags data: <code>020106</code>
         <td>25821.505</td>
         <td>
           <code>m3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x52</code>
+        </td>
+        <td>gyroscope</td>
+        <td>uint16 (2&nbsp;bytes)</td>
+        <td>0.001</td>
+        <td>
+          <code>528756</code>
+        </td>
+        <td>22.151</td>
+        <td>
+          <code>°/s</code>
         </td>
       </tr>
       <tr>
@@ -687,6 +717,21 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x50</code>
+        </td>
+        <td>timestamp</td>
+        <td>uint48 (4&nbsp;bytes)</td>
+        <td>-</td>
+        <td>
+          <code>505396164</code>
+        </td>
+        <td>see below</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x13</code>
         </td>
         <td>tvoc</td>
@@ -823,6 +868,18 @@ Flags data: <code>020106</code>
     </tbody>
   </table>
 </div>
+<h5 id="timestamp">Timestamp</h5>
+<p>
+  The timestamp sensor needs a little more explanation. The timestamp sensor
+  is defined as number of seconds since 1970-1-1, 
+  00:00:00, UTC, (also called epoch time), and is returning a datetime 
+  object with timezone UTC. 
+  <code>0x5D396164</code> is, after converting from bytes (little endian) 
+  to an integer, 1684093277 seconds, which corresponds to 2023-5-14, 
+  19:41:17. The corresponding datetime object that is returned is:  
+  <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
+</p>
+
 <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
 <p>
   If you want to send multiple measurements of the same type, e.g. three
