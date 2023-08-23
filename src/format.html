@@ -16,13 +16,13 @@ description: API Reference for BTHome
   The BTHome v2 format can best be explained with an example. First, the basics:<br />
   Bluetooth defines a single packet format for both advertising and data transmissions.
   This packet consist of four components: preamble (1 octet), access address (4 octets),
-  Protocol Data Unit – PDU (2-257 octets), and Cyclic Redundancy Check – CRC (3 octets).
+  Protocol Data Unit - PDU (2-257 octets), and Cyclic Redundancy Check - CRC (3 octets).
   If you want to learn more about the BLE format, you can
   <a
     href="https://www.bluetooth.com/blog/bluetooth-low-energy-it-starts-with-advertising/"
     target="_blank"
     >read this</a
-  >).
+  >.
 </p>
   <img src="/images/PDU_payload.png" alt="BLE packet" />
 
@@ -43,7 +43,7 @@ description: API Reference for BTHome
 <ul>
   <li>1st byte: length of the element (excluding the length byte itself)</li>
   <li>
-    2nd byte: AD type – specifies what
+    2nd byte: AD type - specifies what
     <a
       href="https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/Assigned%20Number%20Types/Generic%20Access%20Profile.pdf"
       target="_blank"
@@ -51,7 +51,7 @@ description: API Reference for BTHome
     >
     is included in the element
   </li>
-  <li>AD data – one or more bytes - the meaning is defined by the AD type</li>
+  <li>AD data - one or more bytes - the meaning is defined by the AD type</li>
 </ul>
 <p>
   The advertising payload in BTHome format should at least contain the
@@ -732,6 +732,21 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x53</code>
+        </td>
+        <td>text</td>
+        <td>see below</td>
+        <td>-</td>
+        <td>
+          <code>530C48656C6C6F20576F726C6421</code>
+        </td>
+        <td>"Hello World!</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x13</code>
         </td>
         <td>tvoc</td>
@@ -878,6 +893,17 @@ Flags data: <code>020106</code>
   to an integer, 1684093277 seconds, which corresponds to 2023-5-14, 
   19:41:17. The corresponding datetime object that is returned is:  
   <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
+</p>
+
+<h5 id="text">Text</h5>
+<p>
+  The text sensor has a variable length. You therefore have to specify 
+  the length in the first byte after the `object id`. In the example 
+  <code>0x530C48656C6C6F20576F726C6421</code>, the 2nd byte (<code>0x0C</code>) 
+  gives the length of the text string (12 bytes). The text has to be encoded in 
+  UTF-8. The byte string <code>0x48656C6C6F20576F726C6421</code> in text is  
+  <code>Hello World!</code>. Make sure the length is specified correct in the 
+  second byte. 
 </p>
 
 <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
