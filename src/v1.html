@@ -587,6 +587,36 @@ BTHome data =
           <code>°/s</code>
         </td>
       </tr>
+      <tr>
+        <td>
+          <code>0x53</code>
+        </td>
+        <td>text</td>
+        <td>see below</td>
+        <td>-</td>
+        <td>
+          <code>0D5348656C6C6F20576F726C6421</code>
+        </td>
+        <td>Hello World!</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x54</code>
+        </td>
+        <td>raw</td>
+        <td>see below</td>
+        <td>-</td>
+        <td>
+          <code>0D5448656C6C6F20576F726C6421</code>
+        </td>
+        <td>48656c6c6f20576f726c6421</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -600,6 +630,13 @@ BTHome data =
   to an integer, 1684093277 seconds, which corresponds to 2023-5-14, 
   19:41:17. The corresponding datetime object that is returned is:  
   <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
+</p>
+<h5 id="text and raw">Text and Raw sensors</h5>
+<p>
+  Text has to be encoded in UTF-8, while the raw sensor is reported back as 
+  hexadecimal string. The byte string <code>0x48656C6C6F20576F726C6421</code> 
+  in text is <code>Hello World!</code>, while in raw sensor will give 
+  <code>48656c6c6f20576f726c6421</code> as result.
 </p>
 <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
 <p>
