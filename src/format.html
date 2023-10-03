@@ -657,6 +657,21 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x54</code>
+        </td>
+        <td>raw</td>
+        <td>see below</td>
+        <td>-</td>
+        <td>
+          <code>540C48656c6c6f20576f726c6421</code>
+        </td>
+        <td>"48656c6c6f20576f726c6421"</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x3F</code>
         </td>
         <td>rotation</td>
@@ -717,6 +732,21 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x53</code>
+        </td>
+        <td>text</td>
+        <td>see below</td>
+        <td>-</td>
+        <td>
+          <code>530C48656C6C6F20576F726C6421</code>
+        </td>
+        <td>"Hello World!"</td>
+        <td>
+          <code></code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x50</code>
         </td>
         <td>timestamp</td>
@@ -726,21 +756,6 @@ Flags data: <code>020106</code>
           <code>505d396164</code>
         </td>
         <td>see below</td>
-        <td>
-          <code></code>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code>0x53</code>
-        </td>
-        <td>text</td>
-        <td>see below</td>
-        <td>-</td>
-        <td>
-          <code>530C48656C6C6F20576F726C6421</code>
-        </td>
-        <td>"Hello World!</td>
         <td>
           <code></code>
         </td>
@@ -895,15 +910,16 @@ Flags data: <code>020106</code>
   <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
 </p>
 
-<h5 id="text">Text</h5>
+<h5 id="text">Text and Ras sensors</h5>
 <p>
-  The text sensor has a variable length. You therefore have to specify 
-  the length in the first byte after the `object id`. In the example 
+  The Text and Raw sensors have a variable length. You therefore have to specify 
+  the length in the first byte after the `object id`. In the text sensor example 
   <code>0x530C48656C6C6F20576F726C6421</code>, the 2nd byte (<code>0x0C</code>) 
   gives the length of the text string (12 bytes). The text has to be encoded in 
   UTF-8. The byte string <code>0x48656C6C6F20576F726C6421</code> in text is  
-  <code>Hello World!</code>. Make sure the length is specified correct in the 
-  second byte. 
+  <code>Hello World!</code>. In Raw format <code>0x54</code>, the bytes are 
+  reported in hex format, as <code>48656C6C6F20576F726C6421</code>. 
+  Make sure the length is specified correct in the second byte. 
 </p>
 
 <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
