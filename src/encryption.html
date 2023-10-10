@@ -50,8 +50,12 @@ description: Encryption schema of BTHome explained.
   <code>231d39c1d7cc1ab1aee224cd096db932</code>.
 </p>
 <p>
-  We also need a <strong>Counter</strong>, which is a 4 bytes long value, which
-  is changed every advertisement. Let's take <code>0x00112233</code> as example.
+  We also need a <strong>Counter</strong>, which is a 4 bytes long value (unsigned
+  32-bit little-endian integer), which should increase every advertisement. This
+  counter can be used to implement the replay protection features of AES-CCM, but has
+  to be implemented on the receiving side (e.g. by verifying that the counter has increased
+  compared to the previous counter value).
+  In the example we use <code>0x00112233</code> as value for the counter.
 </p>
 <p>
   Last thing we need is the <strong>MAC address</strong> of the sensor device,
