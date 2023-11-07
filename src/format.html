@@ -663,9 +663,9 @@ Flags data: <code>020106</code>
         <td>see below</td>
         <td>-</td>
         <td>
-          <code>540C48656c6c6f20576f726c6421</code>
+          <code>540C48656C6C6F20576F726C6421</code>
         </td>
-        <td>"48656c6c6f20576f726c6421"</td>
+        <td>48656c6c6f20576f726c6421</td>
         <td>
           <code></code>
         </td>
@@ -740,7 +740,7 @@ Flags data: <code>020106</code>
         <td>
           <code>530C48656C6C6F20576F726C6421</code>
         </td>
-        <td>"Hello World!"</td>
+        <td>Hello World!</td>
         <td>
           <code></code>
         </td>
@@ -910,15 +910,15 @@ Flags data: <code>020106</code>
   <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
 </p>
 
-<h5 id="text">Text and Ras sensors</h5>
+<h5 id="text and raw">Text and Raw sensors</h5>
 <p>
-  The Text and Raw sensors have a variable length. You therefore have to specify 
-  the length in the first byte after the `object id`. In the text sensor example 
+  The text and raw sensor have a variable length. You therefore have to specify 
+  the length in the first byte after the `object id`. In the example of the text sensor
   <code>0x530C48656C6C6F20576F726C6421</code>, the 2nd byte (<code>0x0C</code>) 
-  gives the length of the text string (12 bytes). The text has to be encoded in 
-  UTF-8. The byte string <code>0x48656C6C6F20576F726C6421</code> in text is  
-  <code>Hello World!</code>. In Raw format <code>0x54</code>, the bytes are 
-  reported in hex format, as <code>48656C6C6F20576F726C6421</code>. 
+  gives the length of the text string (12 bytes). Text has to be encoded in 
+  UTF-8, while the raw sensor is reported back as hexadecimal string. The byte string 
+  <code>0x48656C6C6F20576F726C6421</code> in text is <code>Hello World!</code>, while 
+  in raw sensor will give <code>48656c6c6f20576f726c6421</code> as result. 
   Make sure the length is specified correct in the second byte. 
 </p>
 
