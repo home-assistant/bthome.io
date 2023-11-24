@@ -1526,6 +1526,67 @@ Flags data: <code>020106</code>
   <code>3A003A01</code> will send no event for the first button, and an event
   "press" for the second button.
 </p>
+<h4 id="device-information">Device</h4>
+<h5>Device information</h5>
+<p>
+  The following device information can be included in the BLE advertisment, a
+  <code>device type id</code> and the installed <code>fw version</code>. The 
+  <code>device type id</code> is 2 bytes long in little endian and can be used to 
+  make a distinction between device types. The <code>firmware version</code> can be
+  send in <code>0.0.0.1</code> format or in <code>0.0.1</code> format.
+</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Object id</th>
+        <th>Property</th>
+        <th>Data Type</th>
+        <th>Example</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code>0xF0</code>
+        </td>
+        <td>device type id</td>
+        <td>uint16 (2&nbsp;bytes)</td>
+        <td>
+          <code>F00100</code>
+        </td>
+        <td>1</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td>
+          <code>0xF1</code>
+        </td>
+        <td>firmware version</td>
+        <td>uint32 (4&nbsp;bytes)</td>
+        <td>
+          <code>F100010204</code>
+        </td>
+        <td>4.2.1.0</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td>
+          <code>0xF2</code>
+        </td>
+        <td>firmware version</td>
+        <td>uint24 (3&nbsp;bytes)</td>
+        <td>
+          <code>F1000106</code>
+        </td>
+        <td>6.1.0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <h4 id="misc-data">Misc data</h4>
 <h5>Packet id</h5>
 <p>
