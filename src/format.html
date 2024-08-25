@@ -142,7 +142,7 @@ Flags data: <code>020106</code>
 <ul>
   <li>bit 0: <b>“Encryption flag”</b></li>
   <ul>
-    The Encryption flag is telling the receiver wether the device is sending 
+    The Encryption flag is telling the receiver whether the device is sending
     non-encrypted data (bit 0 = <code>0</code>) or encrypted data (bit 0 = <code>1</code>).
   </ul>
   <li>bit 1: “Reserved for future use”</li>
@@ -151,7 +151,7 @@ Flags data: <code>020106</code>
     <li>The trigger based device flag is telling the receiver that it should expect 
     that the device is sending BLE advertisements at a regular interval (bit 2 = <code>0</code>) or 
     at an irregular interval (bit 2 = <code>1</code>), e.g. only when someone pushes a button. This can 
-    be usefull information for a receiver, e.g. to prevent the device from going 
+    be useful information for a receiver, e.g. to prevent the device from going
     to unavailable.</li>
   </ul>
   <li>bit 3-4: “Reserved for future use”</li>
@@ -159,7 +159,7 @@ Flags data: <code>020106</code>
   <ul>
     <li>This represents the BTHome verion. Currently only BTHome version 1 or 2 
       are allowed, where 2 is the latest version (bit 5-7 = <code>010</code>).</li>
-    </ul>
+  </ul>
 </ul>
 
 <p>
@@ -261,7 +261,7 @@ Flags data: <code>020106</code>
           <code>0x51</code>
         </td>
         <td>acceleration</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.001</td>
         <td>
           <code>518756</code>
@@ -276,7 +276,7 @@ Flags data: <code>020106</code>
           <code>0x01</code>
         </td>
         <td>battery</td>
-        <td>uint8 (1&nbsp;byte)</td>
+        <td>uint8 (1 byte)</td>
         <td>1</td>
         <td>
           <code>0161</code>
@@ -291,7 +291,7 @@ Flags data: <code>020106</code>
           <code>0x12</code>
         </td>
         <td>co2</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>12E204</code>
@@ -303,10 +303,25 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x56</code>
+        </td>
+        <td>co2</td>
+        <td>uint16 (2 bytes)</td>
+        <td>1</td>
+        <td>
+          <code>56E803</code>
+        </td>
+        <td>1000</td>
+        <td>
+          <code>µS/cm</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x09</code>
         </td>
         <td>count</td>
-        <td>uint (1&nbsp;bytes)</td>
+        <td>uint8 (1 byte)</td>
         <td>1</td>
         <td>
           <code>0960</code>
@@ -319,7 +334,7 @@ Flags data: <code>020106</code>
           <code>0x3D</code>
         </td>
         <td>count</td>
-        <td>uint (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>3D0960</code>
@@ -332,7 +347,7 @@ Flags data: <code>020106</code>
           <code>0x3E</code>
         </td>
         <td>count</td>
-        <td>uint (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>1</td>
         <td>
           <code>3E2A2C0960</code>
@@ -342,10 +357,48 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x59</code>
+        </td>
+        <td>count</td>
+        <td>sint8 (1 byte)</td>
+        <td>1</td>
+        <td>
+          <code>59EA</code>
+        </td>
+        <td>-22</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x5A</code>
+        </td>
+        <td>count</td>
+        <td>sint16 (2 bytes)</td>
+        <td>1</td>
+        <td>
+          <code>5AEAEA</code>
+        <td>-5398</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x5B</code>
+        </td>
+        <td>count</td>
+        <td>sint32 (4 bytes)</td>
+        <td>1</td>
+        <td>
+          <code>5BEA0234EA</code>
+        </td>
+        <td>-365690134</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
           <code>0x43</code>
         </td>
         <td>current</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.001</td>
         <td>
           <code>434E34</code>
@@ -357,10 +410,25 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x5D</code>
+        </td>
+        <td>current</td>
+        <td>sint16 (2 bytes)</td>
+        <td>0.001</td>
+        <td>
+          <code>5D02EA</code>
+        </td>
+        <td>-5.63</td>
+        <td>
+          <code>A</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x08</code>
         </td>
         <td>dewpoint</td>
-        <td>sint16 (2&nbsp;bytes)</td>
+        <td>sint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>08CA06</code>
@@ -375,7 +443,7 @@ Flags data: <code>020106</code>
           <code>0x40</code>
         </td>
         <td>distance (mm)</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>400C00</code>
@@ -390,7 +458,7 @@ Flags data: <code>020106</code>
           <code>0x41</code>
         </td>
         <td>distance (m)</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.1</td>
         <td>
           <code>414E00</code>
@@ -405,7 +473,7 @@ Flags data: <code>020106</code>
           <code>0x42</code>
         </td>
         <td>duration</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.001</td>
         <td>
           <code>424E3400</code>
@@ -420,7 +488,7 @@ Flags data: <code>020106</code>
           <code>0x4D</code>
         </td>
         <td>energy</td>
-        <td>uint32 (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>0.001</td>
         <td>
           <code>4d12138a14</code>
@@ -435,7 +503,7 @@ Flags data: <code>020106</code>
           <code>0x0A</code>
         </td>
         <td>energy</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.001</td>
         <td>
           <code>0A138A14</code>
@@ -450,7 +518,7 @@ Flags data: <code>020106</code>
           <code>0x4B</code>
         </td>
         <td>gas</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.001</td>
         <td>
           <code>4B138A14</code>
@@ -465,7 +533,7 @@ Flags data: <code>020106</code>
           <code>0x4C</code>
         </td>
         <td>gas</td>
-        <td>uint32 (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>0.001</td>
         <td>
           <code>4C41018A01</code>
@@ -480,7 +548,7 @@ Flags data: <code>020106</code>
           <code>0x52</code>
         </td>
         <td>gyroscope</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.001</td>
         <td>
           <code>528756</code>
@@ -495,7 +563,7 @@ Flags data: <code>020106</code>
           <code>0x03</code>
         </td>
         <td>humidity</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>03BF13</code>
@@ -510,7 +578,7 @@ Flags data: <code>020106</code>
           <code>0x2E</code>
         </td>
         <td>humidity</td>
-        <td>uint8 (1&nbsp;byte)</td>
+        <td>uint8 (1 byte)</td>
         <td>1</td>
         <td>
           <code>2E23</code>
@@ -525,7 +593,7 @@ Flags data: <code>020106</code>
           <code>0x05</code>
         </td>
         <td>illuminance</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.01</td>
         <td>
           <code>05138A14</code>
@@ -540,7 +608,7 @@ Flags data: <code>020106</code>
           <code>0x06</code>
         </td>
         <td>mass (kg)</td>
-        <td>uint16 (2&nbsp;byte)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>065E1F</code>
@@ -555,7 +623,7 @@ Flags data: <code>020106</code>
           <code>0x07</code>
         </td>
         <td>mass (lb)</td>
-        <td>uint16 (2&nbsp;byte)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>073E1D</code>
@@ -570,7 +638,7 @@ Flags data: <code>020106</code>
           <code>0x14</code>
         </td>
         <td>moisture</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>14020C</code>
@@ -585,7 +653,7 @@ Flags data: <code>020106</code>
           <code>0x2F</code>
         </td>
         <td>moisture</td>
-        <td>uint8 (1&nbsp;byte)</td>
+        <td>uint8 (1 byte)</td>
         <td>1</td>
         <td>
           <code>2F23</code>
@@ -600,7 +668,7 @@ Flags data: <code>020106</code>
           <code>0x0D</code>
         </td>
         <td>pm2.5</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>0D120C</code>
@@ -615,7 +683,7 @@ Flags data: <code>020106</code>
           <code>0x0E</code>
         </td>
         <td>pm10</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>0E021C</code>
@@ -630,7 +698,7 @@ Flags data: <code>020106</code>
           <code>0x0B</code>
         </td>
         <td>power</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.01</td>
         <td>
           <code>0B021B00</code>
@@ -642,10 +710,25 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x5C</code>
+        </td>
+        <td>power</td>
+        <td>sint32 (4 bytes)</td>
+        <td>0.01</td>
+        <td>
+          <code>5C02FBFFFF</code>
+        </td>
+        <td>-12.78</td>
+        <td>
+          <code>W</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x04</code>
         </td>
         <td>pressure</td>
-        <td>uint24 (3&nbsp;bytes)</td>
+        <td>uint24 (3 bytes)</td>
         <td>0.01</td>
         <td>
           <code>04138A01</code>
@@ -675,7 +758,7 @@ Flags data: <code>020106</code>
           <code>0x3F</code>
         </td>
         <td>rotation</td>
-        <td>sint16 (2&nbsp;bytes)</td>
+        <td>sint16 (2 bytes)</td>
         <td>0.1</td>
         <td>
           <code>3F020C</code>
@@ -690,7 +773,7 @@ Flags data: <code>020106</code>
           <code>0x44</code>
         </td>
         <td>speed</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>444E34</code>
@@ -702,10 +785,40 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x57</code>
+        </td>
+        <td>temperature</td>
+        <td>sint8 (1 byte)</td>
+        <td>1</td>
+        <td>
+          <code>57EA</code>
+        </td>
+        <td>-22</td>
+        <td>
+          <code>°C</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x58</code>
+        </td>
+        <td>temperature</td>
+        <td>sint8 (1 byte)</td>
+        <td>0.35</td>
+        <td>
+          <code>58EA</code>
+        </td>
+        <td>-7.7</td>
+        <td>
+          <code>°C</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x45</code>
         </td>
         <td>temperature</td>
-        <td>sint16 (2&nbsp;bytes)</td>
+        <td>sint16 (2 bytes)</td>
         <td>0.1</td>
         <td>
           <code>451101</code>
@@ -720,7 +833,7 @@ Flags data: <code>020106</code>
           <code>0x02</code>
         </td>
         <td>temperature</td>
-        <td>sint16 (2&nbsp;bytes)</td>
+        <td>sint16 (2 bytes)</td>
         <td>0.01</td>
         <td>
           <code>02CA09</code>
@@ -750,7 +863,7 @@ Flags data: <code>020106</code>
           <code>0x50</code>
         </td>
         <td>timestamp</td>
-        <td>uint48 (4&nbsp;bytes)</td>
+        <td>uint48 (4 bytes)</td>
         <td>-</td>
         <td>
           <code>505d396164</code>
@@ -765,7 +878,7 @@ Flags data: <code>020106</code>
           <code>0x13</code>
         </td>
         <td>tvoc</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>133301</code>
@@ -780,7 +893,7 @@ Flags data: <code>020106</code>
           <code>0x0C</code>
         </td>
         <td>voltage</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.001</td>
         <td>
           <code>0C020C</code>
@@ -795,7 +908,7 @@ Flags data: <code>020106</code>
           <code>0x4A</code>
         </td>
         <td>voltage</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.1</td>
         <td>
           <code>4A020C</code>
@@ -810,7 +923,7 @@ Flags data: <code>020106</code>
           <code>0x4E</code>
         </td>
         <td>volume</td>
-        <td>uint32 (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>0.001</td>
         <td>
           <code>4E87562A01</code>
@@ -825,7 +938,7 @@ Flags data: <code>020106</code>
           <code>0x47</code>
         </td>
         <td>volume</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.1</td>
         <td>
           <code>478756</code>
@@ -840,7 +953,7 @@ Flags data: <code>020106</code>
           <code>0x48</code>
         </td>
         <td>volume</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>uint16 (2 bytes)</td>
         <td>1</td>
         <td>
           <code>48DC87</code>
@@ -855,7 +968,7 @@ Flags data: <code>020106</code>
           <code>0x55</code>
         </td>
         <td>volume storage</td>
-        <td>uint32 (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>0.001</td>
         <td>
           <code>5587562A01</code>
@@ -869,8 +982,8 @@ Flags data: <code>020106</code>
         <td>
           <code>0x49</code>
         </td>
-        <td>volume Flow Rate</td>
-        <td>uint16 (2&nbsp;bytes)</td>
+        <td>volume flow rate</td>
+        <td>uint16 (2 bytes)</td>
         <td>0.001</td>
         <td>
           <code>49DC87</code>
@@ -885,7 +998,7 @@ Flags data: <code>020106</code>
           <code>0x46</code>
         </td>
         <td>UV index</td>
-        <td>uint8 (1&nbsp;byte)</td>
+        <td>uint8 (1 byte)</td>
         <td>0.1</td>
         <td>
           <code>4632</code>
@@ -900,7 +1013,7 @@ Flags data: <code>020106</code>
           <code>0x4F</code>
         </td>
         <td>water</td>
-        <td>uint32 (4&nbsp;bytes)</td>
+        <td>uint32 (4 bytes)</td>
         <td>0.001</td>
         <td>
           <code>4F87562A01</code>
