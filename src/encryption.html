@@ -18,6 +18,14 @@ description: Encryption schema of BTHome explained.
   key (32 characters).
 </p>
 
+<div style="border:1px solid #f5c542; background:#fffbe6; color:#856404; padding:10px; margin-bottom:16px;">
+  <strong>Limitations:</strong> Note that although the BLE messages can be encrypted, this doesn't mean that a hacker
+    can send non-encrypted or modified encrypted data, with the same MAC address. Currently, most receivers, like Home
+    Assistant, process both encrypted and non-encrypted messages without any further checks. So, a hacker can send
+    non-encrypted sensor data that will be processed. You should therefore not use this sensor data for safety critical
+    applications/automations (like opening doors, etc.).
+</div>
+
 <h3 id="ble-advertising">Encrypting your messages</h3>
 <p>
   We will demonstrate the encryption process with an example. Let's say you want
