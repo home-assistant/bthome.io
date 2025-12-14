@@ -79,9 +79,9 @@ description: Encryption schema of BTHome explained.
   <li>MAC address <code>5448E68F80A5</code></li>
   <li>UUID <code>D2FC</code></li>
   <li>BTHome device data byte <code>41</code></li>
-  <li>Counter <code>00112233</code></li>
+  <li>Counter as little endian <code>33221100</code></li>
 </ul>
-<p>nonce = <code>5448e68f80a5d2fc4100112233</code></p>
+<p>nonce = <code>5448e68f80a5d2fc4133221100</code></p>
 <p>
   Next, we can encrypt the nonce with the encryption key with the following
   command.
@@ -108,16 +108,16 @@ description: Encryption schema of BTHome explained.
   <li>UUID (reversed per byte)<code>D2FC</code></li>
   <li>BTHome device data byte <code>41</code></li>
   <li>Ciphertext <code>a47266c95f73</code></li>
-  <li>Counter <code>00112233</code></li>
+  <li>Counter as little endian <code>33221100</code></li>
   <li>Message Integrity Check (MIC) <code>78237214</code></li>
 </ul>
-<p>Service Data = <code>d2fc41a47266c95f730011223378237214</code></p>
+<p>Service Data = <code>d2fc41a47266c95f733322110078237214</code></p>
 
 <h3 id="decryption">Decrypting your messages</h3>
 <p>
   So, now we have encrypted our first message. But how to decrypt it? Let's
   assume you received the above service data
-  <code>d2fc41a47266c95f730011223378237214</code>. Your sensor device will also
+  <code>d2fc41a47266c95f733322110078237214</code>. Your sensor device will also
   broadcast its MAC address in the header. The only thing you need is the
   encryption key, which you should have written down when you encrypted the
   message.
@@ -131,7 +131,8 @@ description: Encryption schema of BTHome explained.
     <code>a47266c95f73</code>
   </li>
   <li>
-    Counter: 8th byte from the end till 4th byte from the end:
+    Counter: 8th byte from the end till 4th byte from the end reversed, as it
+    is stored in little-endian:
     <code>00112233</code>
   </li>
   <li>
@@ -144,9 +145,9 @@ description: Encryption schema of BTHome explained.
   <li>MAC address <code>5448E68F80A5</code></li>
   <li>UUID <code>d2fc</code></li>
   <li>BTHome device data byte <code>41</code></li>
-  <li>Counter <code>00112233</code></li>
+  <li>Counter in little endian <code>33221100</code></li>
 </ul>
-<p>nonce = <code>5448e68f80a5d2fc4100112233</code></p>
+<p>nonce = <code>5448e68f80a5d2fc4133221100</code></p>
 <p>
   With the Nonce, the MIC and the encryption key, we can decode the data with
   the following commands.
