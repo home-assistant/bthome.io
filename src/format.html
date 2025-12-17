@@ -148,16 +148,16 @@ Flags data: <code>020106</code>
   <li>bit 1: “Reserved for future use”</li>
   <li>bit 2: <b>“Trigger based device flag”</b></li>
   <ul>
-    <li>The trigger based device flag is telling the receiver that it should expect 
-    that the device is sending BLE advertisements at a regular interval (bit 2 = <code>0</code>) or 
-    at an irregular interval (bit 2 = <code>1</code>), e.g. only when someone pushes a button. This can 
+    <li>The trigger based device flag is telling the receiver that it should expect
+    that the device is sending BLE advertisements at a regular interval (bit 2 = <code>0</code>) or
+    at an irregular interval (bit 2 = <code>1</code>), e.g. only when someone pushes a button. This can
     be useful information for a receiver, e.g. to prevent the device from going
     to unavailable.</li>
   </ul>
   <li>bit 3-4: “Reserved for future use”</li>
   <li>bit 5-7: <b>“BTHome Version”</b></li>
   <ul>
-    <li>This represents the BTHome verion. Currently only BTHome version 1 or 2 
+    <li>This represents the BTHome verion. Currently only BTHome version 1 or 2
       are allowed, where 2 is the latest version (bit 5-7 = <code>010</code>).</li>
   </ul>
 </ul>
@@ -267,6 +267,21 @@ Flags data: <code>020106</code>
           <code>518756</code>
         </td>
         <td>22.151</td>
+        <td>
+          <code>m/s²</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>0x63</code>
+        </td>
+        <td>acceleration (signed)</td>
+        <td>sint32 (4 bytes)</td>
+        <td>0.000001</td>
+        <td>
+          <code>630057D0FF</code>
+        </td>
+        <td>-3.123456</td>
         <td>
           <code>m/s²</code>
         </td>
@@ -845,6 +860,21 @@ Flags data: <code>020106</code>
       </tr>
       <tr>
         <td>
+          <code>0x62</code>
+        </td>
+        <td>speed (signed)</td>
+        <td>sint32 (4 bytes)</td>
+        <td>0.000001</td>
+        <td>
+          <code>624099DFFF</code>
+        </td>
+        <td>-2.123456</td>
+        <td>
+          <code>m/s</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>0x57</code>
         </td>
         <td>temperature</td>
@@ -1089,25 +1119,25 @@ Flags data: <code>020106</code>
 <h5 id="timestamp">Timestamp</h5>
 <p>
   The timestamp sensor needs a little more explanation. The timestamp sensor
-  is defined as number of seconds since 1970-1-1, 
-  00:00:00, UTC, (also called epoch time), and is returning a datetime 
-  object with timezone UTC. 
-  <code>0x5D396164</code> is, after converting from bytes (little endian) 
-  to an integer, 1684093277 seconds, which corresponds to 2023-5-14, 
-  19:41:17. The corresponding datetime object that is returned is:  
+  is defined as number of seconds since 1970-1-1,
+  00:00:00, UTC, (also called epoch time), and is returning a datetime
+  object with timezone UTC.
+  <code>0x5D396164</code> is, after converting from bytes (little endian)
+  to an integer, 1684093277 seconds, which corresponds to 2023-5-14,
+  19:41:17. The corresponding datetime object that is returned is:
   <code>datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc)</code>
 </p>
 
 <h5 id="text and raw">Text and Raw sensors</h5>
 <p>
-  The text and raw sensor have a variable length. You therefore have to specify 
+  The text and raw sensor have a variable length. You therefore have to specify
   the length in the first byte after the `object id`. In the example of the text sensor
-  <code>0x530C48656C6C6F20576F726C6421</code>, the 2nd byte (<code>0x0C</code>) 
-  gives the length of the text string (12 bytes). Text has to be encoded in 
-  UTF-8, while the raw sensor is reported back as hexadecimal string. The byte string 
-  <code>0x48656C6C6F20576F726C6421</code> in text is <code>Hello World!</code>, while 
-  in raw sensor will give <code>48656c6c6f20576f726c6421</code> as result. 
-  Make sure the length is specified correct in the second byte. 
+  <code>0x530C48656C6C6F20576F726C6421</code>, the 2nd byte (<code>0x0C</code>)
+  gives the length of the text string (12 bytes). Text has to be encoded in
+  UTF-8, while the raw sensor is reported back as hexadecimal string. The byte string
+  <code>0x48656C6C6F20576F726C6421</code> in text is <code>Hello World!</code>, while
+  in raw sensor will give <code>48656c6c6f20576f726c6421</code> as result.
+  Make sure the length is specified correct in the second byte.
 </p>
 
 <h5 id="multiple_measurements">Multiple measurements of the same type</h5>
@@ -1733,8 +1763,8 @@ Flags data: <code>020106</code>
 <h5>Device information</h5>
 <p>
   The following device information can be included in the BLE advertisment, a
-  <code>device type id</code> and the installed <code>fw version</code>. The 
-  <code>device type id</code> is 2 bytes long in little endian and can be used to 
+  <code>device type id</code> and the installed <code>fw version</code>. The
+  <code>device type id</code> is 2 bytes long in little endian and can be used to
   make a distinction between device types. The <code>firmware version</code> can be
   send in <code>0.0.0.1</code> format or in <code>0.0.1</code> format.
 </p>
