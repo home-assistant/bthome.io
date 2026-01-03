@@ -63,7 +63,8 @@ description: Encryption schema of BTHome explained.
   counter can be used to implement the replay protection features of AES-CCM, but has
   to be implemented on the receiving side (e.g. by verifying that the counter has increased
   compared to the previous counter value).
-  In the example we use <code>0x00112233</code> as value for the counter.
+  In the example we use <code>1122867</code> as value for the counter, which is
+  <code>0x33221100</code> in bytes (little endian).
 </p>
 <p>
   Last thing we need is the <strong>MAC address</strong> of the sensor device,
@@ -79,7 +80,7 @@ description: Encryption schema of BTHome explained.
   <li>MAC address <code>5448E68F80A5</code></li>
   <li>UUID <code>D2FC</code></li>
   <li>BTHome device data byte <code>41</code></li>
-  <li>Counter as little endian <code>33221100</code></li>
+  <li>Counter as bytes in little endian <code>33221100</code></li>
 </ul>
 <p>nonce = <code>5448e68f80a5d2fc4133221100</code></p>
 <p>
@@ -107,17 +108,17 @@ description: Encryption schema of BTHome explained.
 <ul>
   <li>UUID (reversed per byte)<code>D2FC</code></li>
   <li>BTHome device data byte <code>41</code></li>
-  <li>Ciphertext <code>a47266c95f73</code></li>
+  <li>Ciphertext <code>e445f3c9962b</code></li>
   <li>Counter as little endian <code>33221100</code></li>
-  <li>Message Integrity Check (MIC) <code>78237214</code></li>
+  <li>Message Integrity Check (MIC) <code>6c7c4519</code></li>
 </ul>
-<p>Service Data = <code>d2fc41a47266c95f733322110078237214</code></p>
+<p>Service Data = <code>d2fc41e445f3c9962b332211006c7c4519</code></p>
 
 <h3 id="decryption">Decrypting your messages</h3>
 <p>
   So, now we have encrypted our first message. But how to decrypt it? Let's
   assume you received the above service data
-  <code>d2fc41a47266c95f733322110078237214</code>. Your sensor device will also
+  <code>d2fc41e445f3c9962b332211006c7c4519</code>. Your sensor device will also
   broadcast its MAC address in the header. The only thing you need is the
   encryption key, which you should have written down when you encrypted the
   message.
@@ -128,16 +129,17 @@ description: Encryption schema of BTHome explained.
   <li>BTHome device data: 3rd byte, should be <code>41</code></li>
   <li>
     Ciphertext: 4th byte from the start till 8th byte from the end:
-    <code>a47266c95f73</code>
+    <code>e445f3c9962b</code>
   </li>
   <li>
-    Counter: 8th byte from the end till 4th byte from the end reversed, as it
-    is stored in little-endian:
-    <code>00112233</code>
+    Counter: 8th byte from the end till 4th byte from the end:
+    <code>33221100</code>
+    Converting this back from bytes (in little endian) to an integer, gives us
+    <code>1122867</code>:
   </li>
   <li>
     Message Integrity Check (MIC): 4th byte from the end till the end:
-    <code>78237214</code>
+    <code>6c7c4519</code>
   </li>
 </ul>
 <p>With this information, we can recreate the <strong>nonce</strong> again.</p>
