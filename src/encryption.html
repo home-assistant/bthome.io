@@ -20,12 +20,15 @@ description: Encryption schema of BTHome explained.
 
 <div style="border:1px solid #f5c542; background:#fffbe6; color:#856404; padding:10px; margin-bottom:16px;">
   <strong>Limitations:</strong> Although the BLE messages can be encrypted, this is not an automatic safety guarantee.
-    Hackers can still <em>also</em> send non-encrypted (or modified encrypted) data with your (copied) MAC address.<br>
-    Currently most receivers, like Home Assistant, process <em>both encrypted and non-encrypted messages</em> without any further checks.
-    So, a hacker can send non-encrypted sensor data that will be processed exactly the same as an encrypted packet would be.
-    Additionally, if the receiver doesn't also check the message counter inside the encrypted packet, hackers can trivially record your valid message,
-    and repeat it later at their convenience (called a "replay attack").
-    You should therefore not use BTHome sensor data for safety critical applications/automations (like opening doors, etc.).
+  The full safety guarantees of BTHome encryption can only be reached if the <em>receiver</em> implements its required checks.
+  Currently most receivers, like Home Assistant, process <em>both encrypted and non-encrypted messages</em> without any further checks.
+  You should therefore not use BTHome sensor data for safety critical applications/automations (like opening doors, etc.).
+  <ol>
+  <li>Hackers can always send non-encrypted (or modified encrypted) data with your (copied) MAC address.<br>
+  So, without checks, a hacker can send non-encrypted sensor data that will be processed exactly the same as an encrypted packet would be.</li>
+  <li>The receiver must also check the message counter inside the encrypted packet (must increase compared against last time). Otherwise, 
+  hackers can trivially record your valid message, and repeat it later at their convenience, to trigger your actions (called a "replay attack").</li>
+  </ol>
 </div>
 
 <h3 id="ble-advertising">Encrypting your messages</h3>
