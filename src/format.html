@@ -1778,6 +1778,74 @@ Flags data: <code>020106</code>
   <code>3A003A01</code> will send no event for the first button, and an event
   "press" for the second button.
 </p>
+<h4 id="commands">Commands</h4>
+<p>
+  The <code>command</code> object has a variable length. The byte after the
+  <code>object id</code> encodes the length of the arguments: the high 3 bits
+  are reserved for future use (set to <code>0</code>), and the low 5 bits give
+  the argument length in bytes (0&ndash;31). The next byte is the
+  <code>opcode</code>, followed by the arguments. In the example
+  <code>0xE0010305</code>, the 2nd byte (<code>0x01</code>) gives the argument
+  length (1 byte), the 3rd byte (<code>0x03</code>) is the opcode
+  (<em>step up</em>), and the 4th byte (<code>0x05</code>) is the argument
+  (5 steps). The interpretation of the arguments is opcode- and
+  manufacturer-specific. The following opcodes are standardized:
+</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Object id</th>
+        <th>Opcode</th>
+        <th>Meaning</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x00</code></td>
+        <td>off</td>
+        <td><code>E00000</code></td>
+      </tr>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x01</code></td>
+        <td>on</td>
+        <td><code>E00001</code></td>
+      </tr>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x02</code></td>
+        <td>toggle</td>
+        <td><code>E00002</code></td>
+      </tr>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x03</code></td>
+        <td>step up</td>
+        <td><code>E0010305</code></td>
+      </tr>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x04</code></td>
+        <td>step down</td>
+        <td><code>E0010405</code></td>
+      </tr>
+      <tr>
+        <td><code>0xE0</code></td>
+        <td><code>0x05</code>&ndash;<code>0xFF</code></td>
+        <td>reserved for future standardization</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  It is strongly advised for actuators to send command objects in encrypted
+  advertisements to prevent unauthorized parties from observing or spoofing
+  commands. See the <a href="#encryption">Encryption</a> section for details.
+</p>
 <h4 id="device-information">Device</h4>
 <h5>Device information</h5>
 <p>
