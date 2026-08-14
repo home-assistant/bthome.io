@@ -6,4 +6,6 @@ cd "$(dirname "$0")/.."
 rm -rf dist
 cp -r public dist
 
+node script/fetch-allowed-referrers.mjs
+
 npm exec -- eleventy --serve --watch

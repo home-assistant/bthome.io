@@ -1,2 +1,5 @@
 node_modules
 dist
+
+# Generated at build time
+/src/_data/allowedReferrers.json

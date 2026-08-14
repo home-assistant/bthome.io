@@ -43,11 +43,7 @@ BTHome: Open standard for broadcasting sensor data over Bluetooth LE
     <meta name="twitter:description" content="{{ description }}" />
     <meta name="twitter:image" content="https://bthome.io/images/social.png" />
 
-    <script async src="https://plausible.openhomefoundation.org/js/pa-7LkwTapaq064QwUtCPXnP.js"></script>
-    <script>
-      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-      plausible.init()
-    </script>
+    {% include "plausible-analytics.html" %}
   </head>
   <body>
     <div class="container">
@@ -87,7 +83,7 @@ BTHome: Open standard for broadcasting sensor data over Bluetooth LE
           BTHome is sponsored by
           <a href="https://shelly.cloud/">Shelly</a>
         </div>
-        <div class="initiative">
+        <div class="initiative analytics">
           This website uses <a href="https://www.openhomefoundation.org/blog/making-our-web-analytics-open-source-with-plausible/" rel="noopener">privacy-first analytics</a> to help us improve the site. You can view all data in our <a href="https://plausible.openhomefoundation.org/bthome.io" rel="noopener">public dashboard</a>.
         </div>
       </div>

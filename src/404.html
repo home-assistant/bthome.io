@@ -1,0 +1,25 @@
+---
+layout: base
+title: Page not found
+description: The page you were looking for could not be found.
+permalink: /404.html
+---
+
+<h2>Page not found</h2>
+
+<p>
+  The page you were looking for does not exist. It may have moved, or the link
+  that brought you here may be out of date.
+</p>
+
+<p>
+  Try the <a href="/">home page</a>, the
+  <a href="/format/">format reference</a>, or the
+  <a href="/encryption/">encryption docs</a>.
+</p>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof window.plausible === "function") window.plausible("404");
+  });
+</script>
