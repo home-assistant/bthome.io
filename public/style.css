@@ -102,6 +102,12 @@ improv-wifi-serial-launch-button[supported] {
   font-style: italic;
   margin-top: 16px;
 }
+.footer .analytics {
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: balance;
+}
 .hidden {
   display: none;
 }
